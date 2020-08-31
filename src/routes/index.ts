@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import UsersController from '../controllers/UsersController';
 import SessionsController from '../controllers/SessionsController';
+import userValidator from '../validators/userValidator';
 const routes = Router();
 const usersController = new UsersController();
 const sessionsController = new SessionsController();
