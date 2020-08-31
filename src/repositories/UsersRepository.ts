@@ -18,4 +18,18 @@ class UsersRepository {
     return user;
   }
 
+  async findOneByEmail(email: string): Promise<User | null> {
+    const user: User | null = await User.findOne({ email }).lean();
+    return user;
+  }
+
+  async comparePassword(
+    password: string,
+    savedPassword: string,
+  ): Promise<boolean> {
+    const isOk = await bcryptjs.compare(password, savedPassword);
+    return isOk;
+  }
+}
+
 export default UsersRepository;
