@@ -1,15 +1,15 @@
 import 'dotenv/config';
 import express from 'express';
 import { errors } from 'celebrate';
+
 import './database/mongodb';
+import routes from './routes';
+
 const app = express();
 
 app.use(express.json());
-app.get('/*', (_, response) => {
-  response.status(404).json({
-    message: 'Resource not found',
-  });
-});
+
+app.use('/v1/', routes);
 
 app.use(errors());
 
