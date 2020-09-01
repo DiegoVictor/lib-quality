@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import 'express-async-errors';
 import { errors } from 'celebrate';
-import { isBoom } from '@hapi/boom';
+import { isBoom, notFound } from '@hapi/boom';
 import helmet from 'helmet';
 import cors from 'cors';
 
@@ -15,6 +15,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/v1/', routes);
+
+app.get('/*', () => {
+  throw notFound('Resource not found');
+});
 
 app.use(errors());
 app.use((err: Error, _: Request, response: Response, next: NextFunction) => {
