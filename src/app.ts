@@ -1,6 +1,7 @@
 import 'dotenv/config';
-import express from 'express';
+import 'express-async-errors';
 import { errors } from 'celebrate';
+import { isBoom } from '@hapi/boom';
 import helmet from 'helmet';
 import cors from 'cors';
 
@@ -16,5 +17,17 @@ app.use(express.json());
 app.use('/v1/', routes);
 
 app.use(errors());
+app.use((err: Error, _: Request, response: Response, next: NextFunction) => {
+  if (isBoom(err)) {
+    const { statusCode, payload } = err.output;
+
+    return response.status(statusCode).json({
+      ...payload,
+      ...err.data,
+    });
+  }
+
+  return next(err);
+});
 
 export default app;
