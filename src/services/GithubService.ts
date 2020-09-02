@@ -6,6 +6,7 @@ import {
   RepositoryRequest,
   RepositoryResponse,
   responseRepositoryOpenedStats,
+  RepoIssuesChartStats,
   RepoOpenedIssuesStats,
 } from '../parses/github';
 
@@ -134,4 +135,10 @@ export const getRepositoryOpenedIssuesStats = async (
     average,
     deviation,
   );
+};
+
+export const getRepositoryIssuesStats = async (
+  repositories: string[],
+): Promise<RepoIssuesChartStats> => {
+};
 };
