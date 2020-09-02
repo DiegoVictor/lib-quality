@@ -1,4 +1,8 @@
 {
+  "name": "lib-quality",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "dev:server": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   },
@@ -23,9 +27,11 @@
   },
   "dependencies": {
     "@hapi/boom": "^9.1.0",
+    "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^12.2.0",
     "cors": "^2.8.5",
+    "date-fns": "^2.16.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
