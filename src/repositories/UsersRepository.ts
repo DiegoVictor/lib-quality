@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 import User from '../models/User';
 
-interface User {
+export interface User {
   _id: string;
   email: string;
   password: string;
