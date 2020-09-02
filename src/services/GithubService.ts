@@ -141,4 +141,16 @@ export const getRepositoryIssuesStats = async (
   repositories: string[],
 ): Promise<RepoIssuesChartStats> => {
 };
+
+export const getRepositories = async (
+  repositories: string[],
+): Promise<RepositoryResponse[]> => {
+  const promises: Promise<RepositoryResponse>[] = [];
+
+  repositories.forEach(repository => {
+    promises.push(getRepositoryByFullName(repository));
+  });
+
+  const responses = await Promise.all(promises);
+  return responses;
 };
