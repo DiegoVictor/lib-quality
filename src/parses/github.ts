@@ -18,6 +18,15 @@ export interface RepoOpenedIssuesStats {
   deviation: number;
 }
 
+export interface RepoIssuesChartStats {
+  labels: string[];
+  datasets: { data: number[] }[];
+}
+
+export interface RepoIssueCountByDate {
+  [key: string]: number;
+}
+
 export const responseRepository = ({
   id,
   name,
@@ -38,4 +47,12 @@ export const responseRepositoryOpenedStats = (
   open_issues: open_issues_count,
   average,
   deviation,
+});
+
+export const responseRepositoryIssuesStats = (
+  opened: RepoIssueCountByDate,
+  closed: RepoIssueCountByDate,
+): RepoIssuesChartStats => ({
+  labels: Object.keys(opened),
+  datasets: [{ data: Object.values(opened) }, { data: Object.values(closed) }],
 });
