@@ -1,6 +1,11 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
 
-export default model(
+export interface Repository extends Document {
+  count: number;
+  fullName: string;
+}
+
+export default model<Repository>(
   'Repository',
   new Schema(
     {

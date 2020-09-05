@@ -3,6 +3,8 @@ import { promisify } from 'util';
 import { Request, Response, NextFunction } from 'express';
 import { badRequest, unauthorized } from '@hapi/boom';
 
+import auth from '../config/auth';
+
 interface Token {
   iat: number;
   exp: number;
@@ -23,10 +25,7 @@ export default async (
 
   try {
     const [, token] = authorization.split(' ');
-    const decoded = await promisify(jwt.verify)(
-      token,
-      process.env.JWT_SECRET || '',
-    );
+    const decoded = await promisify(jwt.verify)(token, auth.secret);
     const { id, session } = decoded as Token;
 
     request.user = { id, session };

@@ -22,7 +22,7 @@ interface RepoIssueRequest {
   };
 }
 
-const http = axios.create({
+export const http = axios.create({
   baseURL: 'https://api.github.com',
   headers: {
     Accept: 'application/vnd.github.v3+json',
@@ -77,6 +77,7 @@ export const getRepositoryOpenedIssuesStats = async (
     fullName,
     defaultParams,
   );
+
   issues.forEach(({ created_at, pull_request }) => {
     if (!pull_request) {
       openedIssuesDaysCount.push(
@@ -119,6 +120,7 @@ export const getRepositoryOpenedIssuesStats = async (
   }
 
   const openedIssuesCount = openedIssuesDaysCount.length;
+
   const average =
     openedIssuesDaysCount.reduce((sum, days) => sum + days, 0) /
     openedIssuesCount;

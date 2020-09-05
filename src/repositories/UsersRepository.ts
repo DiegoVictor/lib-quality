@@ -1,17 +1,10 @@
 import bcryptjs from 'bcryptjs';
-import { Document } from 'mongoose';
 
-import User from '../models/User';
-
-export interface User {
-  _id: string;
-  email: string;
-  password: string;
-}
+import Model, { User } from '../models/User';
 
 class UsersRepository {
-  async create(email: string, password: string): Promise<Document> {
-    const user = await User.create({
+  async create(email: string, password: string): Promise<User> {
+    const user = await Model.create({
       email,
       password: await bcryptjs.hash(password, 8),
     });
@@ -19,7 +12,7 @@ class UsersRepository {
   }
 
   async findOneByEmail(email: string): Promise<User | null> {
-    const user: User | null = await User.findOne({ email }).lean();
+    const user: User | null = await Model.findOne({ email }).lean();
     return user;
   }
 
@@ -28,6 +21,7 @@ class UsersRepository {
     savedPassword: string,
   ): Promise<boolean> {
     const isOk = await bcryptjs.compare(password, savedPassword);
+
     return isOk;
   }
 }

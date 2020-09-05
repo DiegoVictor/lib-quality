@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { badImplementation } from '@hapi/boom';
 import { searchRepositoryByName } from '../services/GithubService';
 
 class GitHubProjectsController {
@@ -10,9 +11,9 @@ class GitHubProjectsController {
       const repositories = await searchRepositoryByName(projectName);
       return response.json(repositories);
     } catch (err) {
-      return response.status(500).json({
-        message: 'An error occured while trying to get repositories list',
-      });
+      throw badImplementation(
+        'An error occured while trying to get repositories list',
+      );
     }
   }
 }

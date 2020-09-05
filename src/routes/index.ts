@@ -25,7 +25,7 @@ routes.post('/sessions', userValidator, sessionsController.store);
 routes.use(Auth);
 
 routes.get(
-  '/:projectName',
+  '/repositories/:projectName',
   projectNameValidator,
   gitHubProjectsController.show,
 );
