@@ -3,22 +3,19 @@ import { v4 } from 'uuid';
 import { Request, Response } from 'express';
 
 import { login } from '../services/UserService';
+import auth from '../config/auth';
 
 class SessionsController {
-  async store(request: Request, response: Response): Promise<Response> {
+  async store(request: Request, response: Response): Promise<void> {
     const { email, password } = request.body;
 
-    const user = await login(email, password);
+    const { _id } = await login(email, password);
 
-    return response.json({
-      user: { _id: user._id },
-      token: jwt.sign(
-        { id: user._id, session: v4() },
-        process.env.JWT_SECRET || '',
-        {
-          expiresIn: process.env.JWT_EXPIRATION_TIME || '7d',
-        },
-      ),
+    response.json({
+      user: { _id },
+      token: jwt.sign({ id: _id, session: v4() }, auth.secret, {
+        expiresIn: auth.expirationTime,
+      }),
     });
   }
 }
