@@ -1,17 +1,23 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
 
-const User = new Schema(
-  {
-    email: {
-      type: String,
-      required: true,
+export interface User extends Document {
+  email: string;
+  password: string;
+}
+
+export default model<User>(
+  'User',
+  new Schema(
+    {
+      email: {
+        type: String,
+        required: true,
+      },
+      password: {
+        type: String,
+        required: true,
+      },
     },
-    password: {
-      type: String,
-      required: true,
-    },
-  },
-  { timestamps: true },
+    { timestamps: true },
+  ),
 );
-
-export default model('User', User);
