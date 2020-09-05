@@ -1,4 +1,4 @@
-# [API] Be The Hero
+# LibQuality
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/libquality/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/libquality/actions)
 [![mongoose](https://img.shields.io/badge/mongoose-5.10.2-green?style=flat-square&logo=mongo&logoColor=white)](https://mongoosejs.com/)
 [![eslint](https://img.shields.io/badge/eslint-7.8.1-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
