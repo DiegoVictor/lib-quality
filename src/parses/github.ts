@@ -68,34 +68,31 @@ export const responseRepositoryOpenedStats = (
 export const responseRepositoryIssuesStats = (
   issuesByDate: RepoIssuesChartStatsRequest,
 ): RepoIssuesChartStats => {
-  const firstRepo = Object.keys(issuesByDate).shift();
+  const datasets: Dataset[] = [];
+  const labels: string[] = [];
 
-  if (firstRepo) {
-    const datasets: Dataset[] = [];
+  Object.keys(issuesByDate).forEach(repo => {
+    if (labels.length === 0) {
+      Object.keys(issuesByDate[repo].opened).forEach(date => labels.push(date));
+    }
 
-    Object.keys(issuesByDate).forEach(repo => {
-      datasets.push({
-        label: `${repo} - Opened Issues`,
-        data: Object.values(issuesByDate[repo].opened),
-        borderColor: randomColor(),
-        backgroundColor: 'transparent',
-      });
-      datasets.push({
-        label: `${repo} - Closed Issues`,
-        data: Object.values(issuesByDate[repo].closed),
-        borderColor: randomColor(),
-        backgroundColor: 'transparent',
-      });
+    datasets.push({
+      label: `${repo} - Opened Issues`,
+      data: Object.values(issuesByDate[repo].opened),
+      borderColor: randomColor(),
+      backgroundColor: 'transparent',
     });
 
-    return {
-      labels: Object.keys(issuesByDate[firstRepo].opened),
-      datasets,
-    };
-  }
+    datasets.push({
+      label: `${repo} - Closed Issues`,
+      data: Object.values(issuesByDate[repo].closed),
+      borderColor: randomColor(),
+      backgroundColor: 'transparent',
+    });
+  });
 
   return {
-    labels: [],
-    datasets: [],
+    labels,
+    datasets,
   };
 };
