@@ -1,5 +1,7 @@
-import Repository from '../models/Repository';
 import SearchSession from '../models/SearchSession';
+import RepositoriesRepository from './RepositoriesRepository';
+
+const repositoriesRepository = new RepositoriesRepository();
 
 class StatisticsRepository {
   async trackSearch(
@@ -7,17 +9,23 @@ class StatisticsRepository {
     user_id: string,
     session: string,
   ): Promise<void> {
-    const repo = await Repository.findOneAndUpdate(
-      { fullName },
-      { $inc: { count: 1 } },
-      { upsert: true, new: true },
-    ).lean();
+    const repo = await repositoriesRepository.findOneByFullName(fullName);
+
+    let _id;
+    if (repo) {
+      repo.count += 1;
+      await repo.save();
+      _id = repo._id;
+    } else {
+      const newRepo = await repositoriesRepository.create(fullName);
+      _id = newRepo._id;
+    }
 
     await SearchSession.findOneAndUpdate(
       { user_id, session },
       {
         $push: {
-          repositories: repo?._id,
+          repositories: _id,
         },
       },
       { upsert: true },
