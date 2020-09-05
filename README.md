@@ -13,6 +13,7 @@
 Allow users to search by project name and check issues status like opened issues, average days opened and deviation. The app use JWT to logins, validation, also a simple versioning was made.
 
 ## Table of Contents
+* [Documentation](#documentation)
 * [Installing](#installing)
   * [Configuring](#configuring)
     * [MongoDB](#mongodb)
@@ -24,6 +25,10 @@ Allow users to search by project name and check issues status like opened issues
     * [Requests](#requests)
 * [Running the tests](#running-the-tests)
   * [Coverage report](#coverage-report)
+
+# Documentation
+You can an online documentation here:
+* [https://documenter.getpostman.com/view/4346128/TVCgzntY](https://documenter.getpostman.com/view/4346128/TVCgzntY)
 
 # Installing
 Easy peasy lemon squeezy:
