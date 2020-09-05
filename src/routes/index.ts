@@ -9,6 +9,7 @@ import SessionsController from '../controllers/SessionsController';
 import projectNameValidator from '../validators/projectNameValidator';
 import githubRepositoryNameValidator from '../validators/githubRepositoryNameValidator';
 import userValidator from '../validators/userValidator';
+import repositoriesNamesValidator from '../validators/repositoriesNamesValidator';
 import Auth from '../middlewares/Auth';
 
 const routes = Router();
@@ -36,6 +37,10 @@ routes.get(
   gitHubProjectAnalyticsController.show,
 );
 
-routes.get('/analytics/chart', gitHubProjectsAnalyticsChartsController.show);
+routes.get(
+  '/analytics/chart',
+  repositoriesNamesValidator,
+  gitHubProjectsAnalyticsChartsController.show,
+);
 
 export default routes;
