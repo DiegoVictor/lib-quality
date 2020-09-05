@@ -88,7 +88,7 @@ GET http://localhost:3333/v1/repositories/libquality
 
 ## Routes
 |route|HTTP Method|params|description|auth method
-|:---|:---:|:---:|:---:|:---:|:---:
+|:---|:---:|:---:|:---:|:---:
 |`/sessions`|POST|Body with user's `email` and `password`.|Authenticates user, return a Bearer Token and user's id and session.|:x:
 |`/users`|POST|Body with user's `email` and `password`.|Create a new NGO.|:x:
 |`/repositories/:projectName`|GET|`:projectName` to search for.|Search repositories in GitHub and return suggestions.|:heavy_check_mark:
