@@ -23,7 +23,7 @@ routes.post('/sessions', userValidator, sessionsController.store);
 routes.use(Auth);
 
 routes.get(
-  '/:projectName',
+  '/repositories/:projectName',
   projectNameValidator,
   gitHubProjectsController.show,
 );
@@ -33,4 +33,5 @@ routes.get(
   githubRepositoryNameValidator,
   gitHubProjectAnalyticsController.show,
 );
+
 export default routes;
