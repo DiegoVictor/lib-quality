@@ -253,8 +253,6 @@ export const getRepositoryIssuesStats = async (
     const { fullName, data } = response;
 
     data.forEach(({ created_at, closed_at, pull_request }) => {
-      console.log(created_at, closed_at, pull_request);
-
       if (!pull_request) {
         const issueCreatedAt = new Date(created_at);
 
