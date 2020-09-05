@@ -10,8 +10,7 @@
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=LibQuality&uri=https%3A%2F%2Fgithub.com%2FDiegoVictor%2Flibquality%2FInsomnia_2020-09-05.json)
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3419c923f3c15604cbab)
 
-
-Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero-web) and [`mobile`](https://github.com/DiegoVictor/bethehero-app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins, validation, also a simple versioning was made.
+Allow users to search by project name and check issues status like opened issues, average days opened and deviation. The app use JWT to logins, validation, also a simple versioning was made.
 
 ## Table of Contents
 * [Installing](#installing)
