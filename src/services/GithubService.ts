@@ -6,8 +6,10 @@ import {
   RepositoryRequest,
   RepositoryResponse,
   responseRepositoryOpenedStats,
+  responseRepositoryIssuesStats,
   RepoIssuesChartStats,
   RepoOpenedIssuesStats,
+  RepoIssuesChartStatsRequest,
 } from '../parses/github';
 
 interface RepoSearchResult {
@@ -142,6 +144,158 @@ export const getRepositoryOpenedIssuesStats = async (
 export const getRepositoryIssuesStats = async (
   repositories: string[],
 ): Promise<RepoIssuesChartStats> => {
+  const lookForIssuesSince = subMonths(new Date(), 3);
+  const defaultParams = {
+    ...defaultGetIssuesParams,
+    state: 'all',
+    since: lookForIssuesSince.toISOString(),
+  };
+
+  const firstIssuesPage: Promise<{
+    fullName: string;
+    response: AxiosResponse<RepoIssueRequest[]>;
+  }>[] = [];
+
+  const issuesByDate: RepoIssuesChartStatsRequest = {};
+  repositories.forEach(fullName => {
+    issuesByDate[fullName] = { opened: {}, closed: {} };
+
+    firstIssuesPage.push(
+      new Promise(resolve => {
+        getRepositoryIssuePagePromise(fullName, defaultParams).then(
+          response => {
+            resolve({ fullName, response });
+          },
+        );
+      }),
+    );
+  });
+
+  const promises: Promise<{
+    fullName: string;
+    data: RepoIssueRequest[];
+  }>[] = [];
+
+  const firstIssuesPageResponses = await Promise.all(firstIssuesPage);
+  firstIssuesPageResponses.forEach(({ fullName, response }) => {
+    const { data: issues, headers } = response;
+
+    issues.forEach(({ created_at, closed_at, pull_request }) => {
+      if (!pull_request) {
+        const issueCreatedAt = new Date(created_at);
+
+        if (isAfter(issueCreatedAt, lookForIssuesSince)) {
+          const formatedDate = format(issueCreatedAt, 'dd/MM/yyyy');
+
+          const total = issuesByDate[fullName].opened[formatedDate] || 0;
+          issuesByDate[fullName].opened[formatedDate] = total + 1;
+
+          repositories.forEach(full_name => {
+            if (
+              typeof issuesByDate[full_name].closed[formatedDate] !== 'number'
+            ) {
+              issuesByDate[full_name].closed[formatedDate] = 0;
+            }
+          });
+        }
+
+        if (closed_at) {
+          const issueClosedAt = new Date(closed_at);
+
+          if (isAfter(issueClosedAt, lookForIssuesSince)) {
+            const formatedDate = format(issueClosedAt, 'dd/MM/yyyy');
+
+            const total = issuesByDate[fullName].closed[formatedDate] || 0;
+            issuesByDate[fullName].closed[formatedDate] = total + 1;
+
+            repositories.forEach(full_name => {
+              if (
+                typeof issuesByDate[full_name].opened[formatedDate] !== 'number'
+              ) {
+                issuesByDate[full_name].opened[formatedDate] = 0;
+              }
+            });
+          }
+        }
+      }
+    });
+
+    if (headers.link) {
+      const end = headers.link.split(',').pop();
+
+      const lastPage = parseInt(
+        end
+          .match(/page=\d+/i)[0]
+          .split('=')
+          .pop(),
+        10,
+      );
+
+      if (lastPage > 1) {
+        for (let page = 2; page <= lastPage; page += 1) {
+          promises.push(
+            new Promise(resolve => {
+              getRepositoryIssuePagePromise(fullName, {
+                ...defaultParams,
+                page,
+              }).then(({ data }) => {
+                resolve({ fullName, data });
+              });
+            }),
+          );
+        }
+      }
+    }
+  });
+
+  const responses = await Promise.all(promises);
+  responses.forEach(response => {
+    const { fullName, data } = response;
+
+    data.forEach(({ created_at, closed_at, pull_request }) => {
+      console.log(created_at, closed_at, pull_request);
+
+      if (!pull_request) {
+        const issueCreatedAt = new Date(created_at);
+
+        if (isAfter(issueCreatedAt, lookForIssuesSince)) {
+          const formatedDate = format(issueCreatedAt, 'dd/MM/yyyy');
+
+          const total = issuesByDate[fullName].opened[formatedDate] || 0;
+          issuesByDate[fullName].opened[formatedDate] = total + 1;
+
+          repositories.forEach(full_name => {
+            if (
+              typeof issuesByDate[full_name].closed[formatedDate] !== 'number'
+            ) {
+              issuesByDate[full_name].closed[formatedDate] = 0;
+            }
+          });
+        }
+
+        if (closed_at) {
+          const issueClosedAt = new Date(closed_at);
+
+          if (isAfter(issueClosedAt, lookForIssuesSince)) {
+            const formatedDate = format(issueClosedAt, 'dd/MM/yyyy');
+
+            const total = issuesByDate[fullName].closed[formatedDate] || 0;
+            issuesByDate[fullName].closed[formatedDate] = total + 1;
+
+            repositories.forEach(full_name => {
+              if (
+                typeof issuesByDate[full_name].opened[formatedDate] !== 'number'
+              ) {
+                issuesByDate[full_name].opened[formatedDate] = 0;
+              }
+            });
+          }
+        }
+      }
+    });
+  });
+
+  return responseRepositoryIssuesStats(issuesByDate);
 };
 
 export const getRepositories = async (
