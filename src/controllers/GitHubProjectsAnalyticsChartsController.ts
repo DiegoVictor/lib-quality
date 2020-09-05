@@ -27,8 +27,6 @@ class GitHubProjectsAnalyticsChartsController {
 
       return response.json(repositoryStats);
     } catch (err) {
-      console.log(err);
-
       throw badImplementation(
         'An error occured while getting issues statistics',
       );
