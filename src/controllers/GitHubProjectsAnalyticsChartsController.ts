@@ -12,7 +12,7 @@ interface CustomRequest {
   };
 }
 
-class GitHubProjectAnalyticChartsController {
+class GitHubProjectsAnalyticsChartsController {
   async show(
     request: Request & CustomRequest,
     response: Response,
@@ -36,4 +36,4 @@ class GitHubProjectAnalyticChartsController {
   }
 }
 
-export default GitHubProjectAnalyticChartsController;
+export default GitHubProjectsAnalyticsChartsController;

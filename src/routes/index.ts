@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import GitHubProjectsController from '../controllers/GitHubProjectsController';
 import GitHubProjectAnalyticsController from '../controllers/GitHubProjectAnalyticsController';
-import GitHubProjectAnalyticChartsController from '../controllers/GitHubProjectAnalyticChartsController';
+import GitHubProjectsAnalyticsChartsController from '../controllers/GitHubProjectsAnalyticsChartsController';
 import UsersController from '../controllers/UsersController';
 import SessionsController from '../controllers/SessionsController';
 
@@ -15,7 +15,7 @@ const routes = Router();
 
 const gitHubProjectsController = new GitHubProjectsController();
 const gitHubProjectAnalyticsController = new GitHubProjectAnalyticsController();
-const gitHubProjectAnalyticChartsController = new GitHubProjectAnalyticChartsController();
+const gitHubProjectsAnalyticsChartsController = new GitHubProjectsAnalyticsChartsController();
 const usersController = new UsersController();
 const sessionsController = new SessionsController();
 
@@ -36,6 +36,6 @@ routes.get(
   gitHubProjectAnalyticsController.show,
 );
 
-routes.get('/analytics/chart', gitHubProjectAnalyticChartsController.show);
+routes.get('/analytics/chart', gitHubProjectsAnalyticsChartsController.show);
 
 export default routes;
