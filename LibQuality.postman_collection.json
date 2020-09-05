@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "4d0cc4ec-373c-4e12-88a8-bbbc94db423e",
+		"name": "LibQuality",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User/Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"diegovictorgonzaga@gmail.com\",\r\n\t\"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Session/Store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "647e8732-40a6-4bf2-8883-f24b84f78782",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"diegovictorgonzaga@gmail.com\",\r\n\t\"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Project/Show",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d6b1989c-87ae-4417-bc91-f964db2ea1e7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9448513e-7210-4297-81b2-909ee9cbe11a",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.collectionVariables.get('base_url') + '/sessions',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'content-type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"email\": \"diegovictorgonzaga@gmail.com\",\r",
+									"            \"password\": \"123456\"\r",
+									"        })\r",
+									"    }\r",
+									"}, (err, res) => pm.collectionVariables.set(\"token\", res.json().token));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/repositories/react",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"repositories",
+								"react"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Analytics/Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/ctimmerm/axios-mock-adapter",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"ctimmerm",
+								"axios-mock-adapter"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1d95dbe5-cabe-4ee6-94b4-3264bdc5dfdb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9c18b17c-f31e-4b9e-8445-b763cf8a8fcb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "840b9207-8650-4b7b-a246-93fdd8aec70c",
+			"key": "base_url",
+			"value": "http://localhost:3333/v1"
+		},
+		{
+			"id": "31410e34-c340-4e33-bd13-5d8fd881d637",
+			"key": "TOKEN",
+			"value": ""
+		},
+		{
+			"id": "06e8548e-2751-412e-8990-6b778be96d1d",
+			"key": "token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
