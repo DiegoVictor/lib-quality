@@ -94,7 +94,7 @@ GET http://localhost:3333/v1/repositories/libquality
 |`/repositories/:projectName`|GET|`:projectName` to search for.|Search repositories in GitHub and return suggestions.|:heavy_check_mark:
 |`/analytics/:user/:repository`|GET|`:user` and `:repository` from a GitHub's repository (`full name`).|Return repository's name, open issues count, days opened average and days opened deviation.|:heavy_check_mark:
 
-> Routes with `Bearer` as auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
+> Routes with auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
 
 ### Requests
 * `POST /session`
