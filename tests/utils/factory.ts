@@ -20,12 +20,12 @@ factory.define(
 );
 
 factory.define('GithubRepository', {}, () => {
-  const name = faker.random.alphaNumeric(4);
+  const name = faker.random.alphaNumeric(4).toLowerCase();
 
   return {
     id: faker.random.number(),
     name,
-    full_name: `${faker.internet.userName()}/${name}`,
+    full_name: `${faker.internet.userName()}/${name}`.toLowerCase(),
   };
 });
 
