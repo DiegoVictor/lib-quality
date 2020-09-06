@@ -2,18 +2,21 @@ import { Router } from 'express';
 
 import GitHubProjectsController from '../controllers/GitHubProjectsController';
 import GitHubProjectAnalyticsController from '../controllers/GitHubProjectAnalyticsController';
+import GitHubProjectsAnalyticsChartsController from '../controllers/GitHubProjectsAnalyticsChartsController';
 import UsersController from '../controllers/UsersController';
 import SessionsController from '../controllers/SessionsController';
 
 import projectNameValidator from '../validators/projectNameValidator';
 import githubRepositoryNameValidator from '../validators/githubRepositoryNameValidator';
 import userValidator from '../validators/userValidator';
+import repositoriesNamesValidator from '../validators/repositoriesNamesValidator';
 import Auth from '../middlewares/Auth';
 
 const routes = Router();
 
 const gitHubProjectsController = new GitHubProjectsController();
 const gitHubProjectAnalyticsController = new GitHubProjectAnalyticsController();
+const gitHubProjectsAnalyticsChartsController = new GitHubProjectsAnalyticsChartsController();
 const usersController = new UsersController();
 const sessionsController = new SessionsController();
 
@@ -32,6 +35,12 @@ routes.get(
   '/analytics/:user/:repository',
   githubRepositoryNameValidator,
   gitHubProjectAnalyticsController.show,
+);
+
+routes.get(
+  '/analytics/chart',
+  repositoriesNamesValidator,
+  gitHubProjectsAnalyticsChartsController.show,
 );
 
 export default routes;

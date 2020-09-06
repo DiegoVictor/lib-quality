@@ -1,3 +1,5 @@
+import randomColor from 'randomcolor';
+
 export interface RepositoryRequest {
   id: number;
   name: string;
@@ -16,6 +18,29 @@ export interface RepoOpenedIssuesStats {
   open_issues: number;
   average: number;
   deviation: number;
+}
+
+interface Dataset {
+  label: string;
+  data: number[];
+  borderColor: string;
+  backgroundColor: string;
+}
+
+export interface RepoIssuesChartStats {
+  labels: string[];
+  datasets: Dataset[];
+}
+
+export interface RepoIssueCountByDate {
+  [key: string]: number;
+}
+
+export interface RepoIssuesChartStatsRequest {
+  [key: string]: {
+    opened: RepoIssueCountByDate;
+    closed: RepoIssueCountByDate;
+  };
 }
 
 export const responseRepository = ({
@@ -39,3 +64,35 @@ export const responseRepositoryOpenedStats = (
   average,
   deviation,
 });
+
+export const responseRepositoryIssuesStats = (
+  issuesByDate: RepoIssuesChartStatsRequest,
+): RepoIssuesChartStats => {
+  const datasets: Dataset[] = [];
+  const labels: string[] = [];
+
+  Object.keys(issuesByDate).forEach(repo => {
+    if (labels.length === 0) {
+      Object.keys(issuesByDate[repo].opened).forEach(date => labels.push(date));
+    }
+
+    datasets.push({
+      label: `${repo} - Opened Issues`,
+      data: Object.values(issuesByDate[repo].opened),
+      borderColor: randomColor(),
+      backgroundColor: 'transparent',
+    });
+
+    datasets.push({
+      label: `${repo} - Closed Issues`,
+      data: Object.values(issuesByDate[repo].closed),
+      borderColor: randomColor(),
+      backgroundColor: 'transparent',
+    });
+  });
+
+  return {
+    labels,
+    datasets,
+  };
+};

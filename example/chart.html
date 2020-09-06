@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LibQuality</title>
+</head>
+<body>
+  <canvas id="chart" width="400" height="400"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script>
+    var ctx = document.getElementById('chart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+    "labels": [
+        "18/07/2020",
+        "10/06/2020",
+        "13/07/2020",
+        "07/07/2020",
+        "09/07/2020",
+        "08/07/2020",
+        "17/07/2020",
+        "20/07/2020",
+        "30/07/2020",
+        "31/07/2020",
+        "28/08/2020",
+        "11/06/2020",
+        "15/06/2020",
+        "22/06/2020",
+        "25/06/2020",
+        "15/07/2020",
+        "11/08/2020",
+        "22/07/2020"
+    ],
+    "datasets": [
+        {
+            "label": "ctimmerm/axios-mock-adapter - Opened Issues",
+            "data": [
+                0,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "borderColor": "#94dbef",
+            "backgroundColor": "transparent"
+        },
+        {
+            "label": "ctimmerm/axios-mock-adapter - Closed Issues",
+            "data": [
+                3,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "borderColor": "#f2f486",
+            "backgroundColor": "transparent"
+        },
+        {
+            "label": "testing-library/jest-dom - Opened Issues",
+            "data": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                0,
+                2,
+                0,
+                1,
+                1,
+                0,
+                1,
+                1
+            ],
+            "borderColor": "#096d02",
+            "backgroundColor": "transparent"
+        },
+        {
+            "label": "testing-library/jest-dom - Closed Issues",
+            "data": [
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                2,
+                0,
+                1,
+                0,
+                0
+            ],
+            "borderColor": "#e85a72",
+            "backgroundColor": "transparent"
+        }
+    ]
+},
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+</html>

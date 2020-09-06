@@ -93,6 +93,7 @@ GET http://localhost:3333/v1/repositories/libquality
 |`/users`|POST|Body with user's `email` and `password`.|Create a new user.|:x:
 |`/repositories/:projectName`|GET|`:projectName` to search for.|Search repositories in GitHub and return suggestions.|:heavy_check_mark:
 |`/analytics/:user/:repository`|GET|`:user` and `:repository` from a GitHub's repository (`full name`).|Return repository's name, open issues count, days opened average and days opened deviation.|:heavy_check_mark:
+|`/analytics/chart`|GET|`repository[0]`, `repository[1]` ... `repository[n]`, repository full name| Return data to fill a chart of lines ([Chart.js](https://www.chartjs.org). You can see an example inside `example` folder.)
 
 > Routes with auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
 

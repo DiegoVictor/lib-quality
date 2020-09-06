@@ -158,7 +158,42 @@
 			"item": [
 				{
 					"name": "Analytics/Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2d0f9f9-457f-4a24-88ef-042a2bc6f6bc",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.collectionVariables.get('base_url') + '/sessions',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'content-type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"email\": \"diegovictorgonzaga@gmail.com\",\r",
+									"            \"password\": \"123456\"\r",
+									"        })\r",
+									"    }\r",
+									"}, (err, res) => pm.collectionVariables.set(\"token\", res.json().token));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -170,6 +205,75 @@
 								"analytics",
 								"ctimmerm",
 								"axios-mock-adapter"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Chart",
+			"item": [
+				{
+					"name": "Chart/Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82e7f4d8-3bcd-495a-9058-7f004034abb6",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.collectionVariables.get('base_url') + '/sessions',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'content-type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"email\": \"diegovictorgonzaga@gmail.com\",\r",
+									"            \"password\": \"123456\"\r",
+									"        })\r",
+									"    }\r",
+									"}, (err, res) => pm.collectionVariables.set(\"token\", res.json().token));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/chart?repositories[0]=ctimmerm/axios-mock-adapter&repositories[1]=testing-library/jest-dom ",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"chart"
+							],
+							"query": [
+								{
+									"key": "repositories[0]",
+									"value": "ctimmerm/axios-mock-adapter"
+								},
+								{
+									"key": "repositories[1]",
+									"value": "testing-library/jest-dom "
+								}
 							]
 						}
 					},
@@ -203,17 +307,17 @@
 	],
 	"variable": [
 		{
-			"id": "840b9207-8650-4b7b-a246-93fdd8aec70c",
+			"id": "f3cda037-a0e4-420b-a0f3-ce0ee9554983",
 			"key": "base_url",
 			"value": "http://localhost:3333/v1"
 		},
 		{
-			"id": "31410e34-c340-4e33-bd13-5d8fd881d637",
+			"id": "7f562c76-a1d8-44ba-9b3f-e242f8d600ac",
 			"key": "TOKEN",
 			"value": ""
 		},
 		{
-			"id": "06e8548e-2751-412e-8990-6b778be96d1d",
+			"id": "518a2b43-d7a7-46ec-8cdc-f2b6aa689cc7",
 			"key": "token",
 			"value": ""
 		}
