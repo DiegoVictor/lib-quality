@@ -37,10 +37,10 @@ $ npm install
 > Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
 ## Configuring
-The application use two databases: [MongoDB](https://www.mongodb.com/). For the fastest setup is recommended to use docker, see below how to setup ever database.
+The application use just one database: [MongoDB](https://www.mongodb.com/). 
 
 ### MongoDB
-Store searchs terms, users searchs by session and the users utilized by application. You can create a MongoDB container like so:
+Store searchs terms, users searchs by session and the users utilized by application. For the fastest setup is recommended to use docker, you can create a MongoDB container like so:
 ```
 $ docker run --name libquality-mongo -d -p 27017:27017 mongo
 ```
