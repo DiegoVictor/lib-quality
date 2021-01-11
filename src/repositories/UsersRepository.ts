@@ -15,7 +15,7 @@ class UsersRepository {
     return user;
   }
 
-  async findOneByEmail(email: string): Promise<User | null> {
+  async findOneByEmail(email: string): Promise<UserWithId | null> {
     const user: UserWithId | null = await Model.findOne({ email }).lean();
     return user;
   }
