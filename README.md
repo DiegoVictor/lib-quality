@@ -1,10 +1,10 @@
 # LibQuality
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/libquality/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/libquality/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/lib-quality/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/lib-quality/actions)
 [![mongoose](https://img.shields.io/badge/mongoose-5.10.2-green?style=flat-square&logo=mongo&logoColor=white)](https://mongoosejs.com/)
 [![eslint](https://img.shields.io/badge/eslint-7.8.1-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 [![jest](https://img.shields.io/badge/jest-26.4.2-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
-[![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/libquality?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/libquality)
+[![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/lib-quality?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/lib-quality)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/libquality/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=LibQuality&uri=https%3A%2F%2Fgithub.com%2FDiegoVictor%2Flib-quality%2FInsomnia_2020-09-05.json)
