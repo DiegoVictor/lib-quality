@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-import { promisify } from 'util';
+import { verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { badRequest, unauthorized } from '@hapi/boom';
 
@@ -25,7 +24,7 @@ export default async (
 
   try {
     const [, token] = authorization.split(' ');
-    const decoded = await promisify(jwt.verify)(token, auth.secret);
+    const decoded = verify(token, auth.secret);
     const { id, session } = decoded as Token;
 
     request.user = { id, session };
