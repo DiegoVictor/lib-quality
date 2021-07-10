@@ -17,8 +17,8 @@ app.use(express.json());
 
 app.use('/v1/', routes);
 
-app.get('/*', () => {
-  throw notFound('Resource not found');
+app.all('/*', () => {
+  throw notFound('Resource not found', { code: 440 });
 });
 
 app.use(errors());
