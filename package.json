@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "dev:server": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "test": "jest --runInBand"
   },
