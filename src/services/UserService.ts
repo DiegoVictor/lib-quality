@@ -1,7 +1,10 @@
 import { badRequest, notFound } from '@hapi/boom';
+import jwt from 'jsonwebtoken';
+import { v4 } from 'uuid';
 
 import UsersRepository from '../repositories/UsersRepository';
 import { responseUser, UserResponse } from '../parses/user';
+import auth from '../config/auth';
 
 const usersRepository = new UsersRepository();
 
@@ -32,5 +35,10 @@ export const login = async (
     throw badRequest('User and/or password does not match', { code: 141 });
   }
 
-  return responseUser(user);
+  return responseUser(
+    user._id,
+    jwt.sign({ id: user._id, session: v4() }, auth.secret, {
+      expiresIn: auth.expirationTime,
+    }),
+  );
 };
