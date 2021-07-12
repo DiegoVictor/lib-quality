@@ -12,7 +12,7 @@ export const createUser = async (
   const user = await usersRepository.findOneByEmail(email);
 
   if (user) {
-    throw badRequest('Email already in use');
+    throw badRequest('Email already in use', { code: 140 });
   }
 
   await usersRepository.create(email, password);
@@ -25,11 +25,11 @@ export const login = async (
   const user = await usersRepository.findOneByEmail(email);
 
   if (!user) {
-    throw notFound('User not found or not exists');
+    throw notFound('User and/or password does not match', { code: 144 });
   }
 
   if (!(await usersRepository.comparePassword(password, user.password))) {
-    throw badRequest('User and/or password not match');
+    throw badRequest('User and/or password does not match', { code: 141 });
   }
 
   return responseUser(user);

@@ -19,7 +19,7 @@ export default async (
   const { authorization } = request.headers;
 
   if (!authorization) {
-    throw badRequest('Missing authorization token');
+    throw badRequest('Missing authorization token', { code: 240 });
   }
 
   try {
@@ -31,6 +31,6 @@ export default async (
 
     return next();
   } catch (err) {
-    throw unauthorized('Token expired or invalid');
+    throw unauthorized('Token expired or invalid', 'simple', { code: 241 });
   }
 };
