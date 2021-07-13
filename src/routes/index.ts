@@ -40,7 +40,7 @@ routes.get(
 routes.get(
   '/analytics/chart',
   repositoriesNamesValidator,
-  gitHubProjectsAnalyticsChartsController.show,
+  gitHubProjectsAnalyticsChartsController.index,
 );
 
 export default routes;

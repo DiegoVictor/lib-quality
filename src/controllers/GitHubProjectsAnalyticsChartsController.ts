@@ -13,7 +13,7 @@ interface CustomRequest {
 }
 
 class GitHubProjectsAnalyticsChartsController {
-  async show(
+  async index(
     request: Request & CustomRequest,
     response: Response,
   ): Promise<Response> {
