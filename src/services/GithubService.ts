@@ -51,10 +51,17 @@ export const searchRepositoryByName = async (
 export const getRepositoryByFullName = async (
   fullName: string,
 ): Promise<RepositoryResponse> => {
-  const { data: repo } = await http.get<RepositoryRequest>(
-    `/repos/${fullName}`,
-  );
-  return repo;
+  try {
+    const { data: repo } = await http.get<RepositoryRequest>(
+      `/repos/${fullName}`,
+    );
+    return repo;
+  } catch (err) {
+    throw badImplementation(
+      'An error occured while trying to get repositories',
+      { code: 351 },
+    );
+  }
 };
 
 const getRepositoryIssuePagePromise = async (
