@@ -16,7 +16,8 @@ const routes = Router();
 
 const gitHubProjectsController = new GitHubProjectsController();
 const gitHubProjectAnalyticsController = new GitHubProjectAnalyticsController();
-const gitHubProjectsAnalyticsChartsController = new GitHubProjectsAnalyticsChartsController();
+const gitHubProjectsAnalyticsChartsController =
+  new GitHubProjectsAnalyticsChartsController();
 const usersController = new UsersController();
 const sessionsController = new SessionsController();
 
