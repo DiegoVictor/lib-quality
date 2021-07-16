@@ -2,14 +2,14 @@ import request from 'supertest';
 import MockAdapter from 'axios-mock-adapter';
 import Mongoose from 'mongoose';
 import faker from 'faker';
-
 import { format, subMonths, addDays, subDays, isAfter } from 'date-fns';
-import app from '../../../src/app';
-import factory from '../../utils/factory';
-import User from '../../../src/models/User';
-import token from '../../utils/jwtoken';
-import { http } from '../../../src/services/GithubService';
-import Repository from '../../../src/models/Repository';
+
+import app from '../../src/app';
+import factory from '../utils/factory';
+import User from '../../src/models/User';
+import token from '../utils/jwtoken';
+import { http } from '../../src/services/GithubService';
+import Repository from '../../src/models/Repository';
 
 interface Repository {
   id: number;
@@ -602,6 +602,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
       .send();
 
     expect(response.body).toStrictEqual({
+      code: 351,
       statusCode: 500,
       error: 'Internal Server Error',
       message: 'An internal server error occurred',
