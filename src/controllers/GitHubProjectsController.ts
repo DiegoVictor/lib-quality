@@ -4,7 +4,7 @@ import { badImplementation } from '@hapi/boom';
 import { searchRepositoryByName } from '../services/GithubService';
 
 class GitHubProjectsController {
-  async show(request: Request, response: Response): Promise<Response> {
+  async index(request: Request, response: Response): Promise<Response> {
     const { projectName } = request.params;
 
     try {
