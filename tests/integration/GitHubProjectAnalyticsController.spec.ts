@@ -2,14 +2,14 @@ import request from 'supertest';
 import MockAdapter from 'axios-mock-adapter';
 import Mongoose from 'mongoose';
 import faker from 'faker';
-
 import { differenceInDays } from 'date-fns';
-import app from '../../../src/app';
-import factory from '../../utils/factory';
-import User from '../../../src/models/User';
-import token from '../../utils/jwtoken';
-import { http } from '../../../src/services/GithubService';
-import Repository from '../../../src/models/Repository';
+
+import app from '../../src/app';
+import factory from '../utils/factory';
+import User from '../../src/models/User';
+import token from '../utils/jwtoken';
+import { http } from '../../src/services/GithubService';
+import Repository from '../../src/models/Repository';
 
 interface Repository {
   id: number;
@@ -237,10 +237,31 @@ describe('GitHubProjectAnalyticsController', () => {
     });
   });
 
-  it('should not be able to get statistics about one repo', async () => {
+  it('should not be able to get data from one repo', async () => {
     const repository = await factory.attrs<Repository>('GithubRepository');
     const authorization = `Bearer ${token(user_id)}`;
 
+    apiMock.reset();
+    apiMock.onGet(`/repos/${repository.full_name}`).reply(400);
+
+    const response = await request(app)
+      .get(`/v1/analytics/${repository.full_name}`)
+      .set('Authorization', authorization)
+      .send();
+
+    expect(response.body).toStrictEqual({
+      code: 351,
+      statusCode: 500,
+      error: 'Internal Server Error',
+      message: 'An internal server error occurred',
+    });
+  });
+
+  it('should not be able to get issues from one repo', async () => {
+    const repository = await factory.attrs<Repository>('GithubRepository');
+    const authorization = `Bearer ${token(user_id)}`;
+
+    apiMock.reset();
     apiMock
       .onGet(`/repos/${repository.full_name}/issues`)
       .reply(400)
@@ -253,6 +274,7 @@ describe('GitHubProjectAnalyticsController', () => {
       .send();
 
     expect(response.body).toStrictEqual({
+      code: 352,
       statusCode: 500,
       error: 'Internal Server Error',
       message: 'An internal server error occurred',
