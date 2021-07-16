@@ -39,13 +39,20 @@ const defaultGetIssuesParams = {
 export const searchRepositoryByName = async (
   q: string,
 ): Promise<RepositoryResponse[]> => {
-  const { data } = await http.get<RepoSearchResult>('/search/repositories', {
-    params: { q, order: 'desc' },
-  });
+  try {
+    const { data } = await http.get<RepoSearchResult>('/search/repositories', {
+      params: { q, order: 'desc' },
+    });
 
-  return data.items
-    .slice(0, 10)
-    .map(repository => responseRepository(repository));
+    return data.items
+      .slice(0, 10)
+      .map(repository => responseRepository(repository));
+  } catch (err) {
+    throw badImplementation(
+      'An error occured while trying to get repositories list',
+      { code: 350 },
+    );
+  }
 };
 
 export const getRepositoryByFullName = async (
