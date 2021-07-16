@@ -29,7 +29,7 @@ routes.use(Auth);
 routes.get(
   '/repositories/:projectName',
   projectNameValidator,
-  gitHubProjectsController.show,
+  gitHubProjectsController.index,
 );
 
 routes.get(
