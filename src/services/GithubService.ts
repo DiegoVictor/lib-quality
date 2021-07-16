@@ -339,6 +339,5 @@ export const getRepositories = async (
     promises.push(getRepositoryByFullName(repository));
   });
 
-  const responses = await Promise.all(promises);
-  return responses;
+  return Promise.all(promises);
 };
