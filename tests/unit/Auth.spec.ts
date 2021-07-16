@@ -13,6 +13,7 @@ describe('Auth middleware', () => {
     const response = await request(app).get('/v1/auth');
 
     expect(response.body).toStrictEqual({
+      code: 240,
       statusCode: 400,
       error: 'Bad Request',
       message: 'Missing authorization token',
@@ -26,6 +27,10 @@ describe('Auth middleware', () => {
       .set('Authorization', authorization);
 
     expect(response.body).toStrictEqual({
+      attributes: {
+        code: 241,
+        error: 'Token expired or invalid',
+      },
       statusCode: 401,
       error: 'Unauthorized',
       message: 'Token expired or invalid',
