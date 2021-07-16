@@ -1,3 +1,4 @@
+import { badImplementation } from '@hapi/boom';
 import axios, { AxiosResponse } from 'axios';
 import { differenceInDays, subMonths, format, isAfter } from 'date-fns';
 
@@ -75,9 +76,16 @@ const getRepositoryIssuePagePromise = async (
   fullName: string,
   params: { [key: string]: string | number },
 ) => {
-  return http.get<RepoIssueRequest[]>(`/repos/${fullName}/issues`, {
-    params,
-  });
+  try {
+    return await http.get<RepoIssueRequest[]>(`/repos/${fullName}/issues`, {
+      params,
+    });
+  } catch (err) {
+    throw badImplementation(
+      "An error occured while trying to get repositories' issues",
+      { code: 352 },
+    );
+  }
 };
 
 export const getRepositoryOpenedIssuesStats = async (

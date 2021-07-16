@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { badImplementation } from '@hapi/boom';
 
 import {
   getRepositories,
@@ -19,18 +18,12 @@ class GitHubProjectsAnalyticsChartsController {
   ): Promise<Response> {
     const { repositories } = request.query;
 
-    try {
-      const repos = await getRepositories(repositories);
-      const repositoryStats = await getRepositoryIssuesStats(
-        repos.map(({ full_name }) => full_name),
-      );
+    const repos = await getRepositories(repositories);
+    const repositoryStats = await getRepositoryIssuesStats(
+      repos.map(({ full_name }) => full_name),
+    );
 
-      return response.json(repositoryStats);
-    } catch (err) {
-      throw badImplementation(
-        'An error occured while getting issues statistics',
-      );
-    }
+    return response.json(repositoryStats);
   }
 }
 
