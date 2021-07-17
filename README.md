@@ -37,23 +37,26 @@ $ npm install
 > Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
 ## Configuring
-The application use just one database: [MongoDB](https://www.mongodb.com/).
+The application use just one database: [MongoDB](https://www.mongodb.com/). For the fastest setup is recommended to use [docker-compose](https://docs.docker.com/compose/), you just need to up all services:
+```
+$ docker-compose up -d
+```
 
 ### MongoDB
-Store searchs terms, users searchs by session and the users utilized by application. For the fastest setup is recommended to use docker, you can create a MongoDB container like so:
+Store searchs terms, users searchs by session and the users utilized by the application. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
 ```
 $ docker run --name libquality-mongo -d -p 27017:27017 mongo
 ```
 
 ### .env
-In this file you may configure your MongoDB database connection, JWT settings and app's port. Rename the `.env.example` in the root directory to `.env` then just update with your settings.
+In this file you may configure your MongoDB's database connection, JWT settings and app's port. Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
 |key|description|default
 |---|---|---
 |APP_PORT|Port number where the app will run.|`3333`
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
-|MONGO_HOST|MongoDB host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
+|MONGO_HOST|MongoDB host.|`mongodb`
 |MONGO_PORT|MongoDB port.|`6379`
 |MONGO_DB|Database name.|`libquality`
 
