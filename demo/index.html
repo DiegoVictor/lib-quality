@@ -6,7 +6,7 @@
   <title>LibQuality</title>
 </head>
 <body>
-  <canvas id="chart" width="400" height="400"></canvas>
+  <canvas id="chart" width="400" height="100"></canvas>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
   <script>
     var url = new URL('http://localhost:3333/v1/analytics/chart');
@@ -20,8 +20,6 @@
       return response.json();
     })
     .then(response => {
-      console.log(response);
-
       var ctx = document.getElementById('chart');
       new Chart(ctx, {
         type: 'line',
