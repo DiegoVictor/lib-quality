@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4d0cc4ec-373c-4e12-88a8-bbbc94db423e",
+		"_postman_id": "4e4dab97-dd12-4f40-a502-6c6e6cf78dcf",
 		"name": "LibQuality",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,8 +34,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Session",
@@ -46,7 +45,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "647e8732-40a6-4bf2-8883-f24b84f78782",
 								"exec": [
 									""
 								],
@@ -81,8 +79,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Project",
@@ -93,7 +90,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d6b1989c-87ae-4417-bc91-f964db2ea1e7",
 								"exec": [
 									""
 								],
@@ -103,7 +99,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9448513e-7210-4297-81b2-909ee9cbe11a",
 								"exec": [
 									"pm.sendRequest({\r",
 									"    url: pm.collectionVariables.get('base_url') + '/sessions',\r",
@@ -150,8 +145,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Analytics",
@@ -162,7 +156,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b2d0f9f9-457f-4a24-88ef-042a2bc6f6bc",
 								"exec": [
 									"pm.sendRequest({\r",
 									"    url: pm.collectionVariables.get('base_url') + '/sessions',\r",
@@ -210,8 +203,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Chart",
@@ -222,7 +214,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "82e7f4d8-3bcd-495a-9058-7f004034abb6",
 								"exec": [
 									"pm.sendRequest({\r",
 									"    url: pm.collectionVariables.get('base_url') + '/sessions',\r",
@@ -279,15 +270,13 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "1d95dbe5-cabe-4ee6-94b4-3264bdc5dfdb",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -297,7 +286,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "9c18b17c-f31e-4b9e-8445-b763cf8a8fcb",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -307,20 +295,16 @@
 	],
 	"variable": [
 		{
-			"id": "f3cda037-a0e4-420b-a0f3-ce0ee9554983",
 			"key": "base_url",
 			"value": "http://localhost:3333/v1"
 		},
 		{
-			"id": "7f562c76-a1d8-44ba-9b3f-e242f8d600ac",
 			"key": "TOKEN",
 			"value": ""
 		},
 		{
-			"id": "518a2b43-d7a7-46ec-8cdc-f2b6aa689cc7",
 			"key": "token",
 			"value": ""
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
