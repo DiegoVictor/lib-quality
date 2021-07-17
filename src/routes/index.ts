@@ -24,6 +24,12 @@ const sessionsController = new SessionsController();
 routes.post('/users', userValidator, usersController.store);
 routes.post('/sessions', userValidator, sessionsController.store);
 
+routes.get(
+  '/analytics/chart',
+  repositoriesNamesValidator,
+  gitHubProjectsAnalyticsChartsController.index,
+);
+
 routes.use(Auth);
 
 routes.get(
@@ -36,12 +42,6 @@ routes.get(
   '/analytics/:user/:repository',
   githubRepositoryNameValidator,
   gitHubProjectAnalyticsController.show,
-);
-
-routes.get(
-  '/analytics/chart',
-  repositoriesNamesValidator,
-  gitHubProjectsAnalyticsChartsController.index,
 );
 
 export default routes;
