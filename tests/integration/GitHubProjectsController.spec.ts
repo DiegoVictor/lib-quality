@@ -2,11 +2,11 @@ import request from 'supertest';
 import MockAdapter from 'axios-mock-adapter';
 import Mongoose from 'mongoose';
 
-import app from '../../../src/app';
-import factory from '../../utils/factory';
-import User from '../../../src/models/User';
-import token from '../../utils/jwtoken';
-import { http } from '../../../src/services/GithubService';
+import app from '../../src/app';
+import factory from '../utils/factory';
+import User from '../../src/models/User';
+import token from '../utils/jwtoken';
+import { http } from '../../src/services/GithubService';
 
 interface GithubRepository {
   id: number;
@@ -66,6 +66,7 @@ describe('GitHubProjectsController', () => {
       .send();
 
     expect(response.body).toStrictEqual({
+      code: 350,
       statusCode: 500,
       error: 'Internal Server Error',
       message: 'An internal server error occurred',
