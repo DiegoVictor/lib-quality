@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev:server": "tsnd --poll --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "test": "jest --runInBand"
   },
   "devDependencies": {
@@ -44,7 +44,7 @@
     "@hapi/boom": "^9.1.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
-    "celebrate": "^14.0.0",
+    "celebrate": "^15.0.0",
     "cors": "^2.8.5",
     "date-fns": "^2.16.0",
     "dotenv": "^10.0.0",
