@@ -2,10 +2,10 @@ import request from 'supertest';
 import Mongoose from 'mongoose';
 import faker from 'faker';
 
-import app from '../../../src/app';
-import User from '../../../src/models/User';
-import factory from '../../utils/factory';
-import UsersRepository from '../../../src/repositories/UsersRepository';
+import app from '../../src/app';
+import User from '../../src/models/User';
+import factory from '../utils/factory';
+import UsersRepository from '../../src/repositories/UsersRepository';
 
 describe('Session controller', () => {
   const usersRepository = new UsersRepository();
@@ -38,9 +38,10 @@ describe('Session controller', () => {
       .send({ email, password });
 
     expect(response.body).toStrictEqual({
+      code: 144,
       statusCode: 404,
       error: 'Not Found',
-      message: 'User not found or not exists',
+      message: 'User and/or password does not match',
     });
   });
 
@@ -56,9 +57,10 @@ describe('Session controller', () => {
       .send({ email, password: wrong_password });
 
     expect(response.body).toMatchObject({
+      code: 141,
       statusCode: 400,
       error: 'Bad Request',
-      message: 'User and/or password not match',
+      message: 'User and/or password does not match',
     });
   });
 });
