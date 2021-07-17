@@ -1,9 +1,9 @@
 import request from 'supertest';
 import Mongoose from 'mongoose';
 
-import app from '../../../src/app';
-import User from '../../../src/models/User';
-import factory from '../../utils/factory';
+import app from '../../src/app';
+import User from '../../src/models/User';
+import factory from '../utils/factory';
 
 describe('User controller', () => {
   beforeEach(async () => {
@@ -32,6 +32,7 @@ describe('User controller', () => {
       .send({ email, password });
 
     expect(response.body).toStrictEqual({
+      code: 140,
       statusCode: 400,
       error: 'Bad Request',
       message: 'Email already in use',
