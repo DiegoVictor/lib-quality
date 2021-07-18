@@ -57,7 +57,7 @@ In this file you may configure your MongoDB's database connection, JWT settings 
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
 |MONGO_HOST|MongoDB host.|`mongodb`
-|MONGO_PORT|MongoDB port.|`6379`
+|MONGO_PORT|MongoDB port.|`27017`
 |MONGO_DB|Database name.|`libquality`
 
 # Usage
