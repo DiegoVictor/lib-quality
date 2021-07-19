@@ -56,9 +56,7 @@ In this file you may configure your MongoDB's database connection, JWT settings 
 |APP_PORT|Port number where the app will run.|`3333`
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
-|MONGO_HOST|MongoDB host.|`mongodb`
-|MONGO_PORT|MongoDB port.|`27017`
-|MONGO_DB|Database name.|`libquality`
+|MONGO_URL|MongoDB's server url.|`mongodb://mongo:27017/libquality`
 
 # Usage
 To start up the app run:

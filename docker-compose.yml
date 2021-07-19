@@ -1,8 +1,8 @@
 version: "3.9"
 services:
-  mongodb:
+  mongo:
     image: mongo
-    container_name: mongodb
+    container_name: mongo
     restart: always
     ports:
       - 27017:27017
@@ -13,7 +13,7 @@ services:
   app:
     build: .
     depends_on:
-      - mongodb
+      - mongo
     ports:
       - 3333:3333
     volumes:
