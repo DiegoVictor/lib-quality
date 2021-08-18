@@ -13,6 +13,87 @@
       "url":"http://localhost:3333/v1"
     }
   ],
+    "/sessions": {
+      "post": {
+        "tags": ["sessions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "example": {
+                "email": "johndoe@example.com",
+                "password": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticates user, return a Bearer Token and user's id and session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "user": {
+                    "_id": "611addb87678b147a0cad501"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWFkZGI4NzY3OGIxNDdhMGNhZDUwMSIsInNlc3Npb24iOiIxZDc2M2EzYy02ZTM1LTRjOTctYjE3Zi1iODVjNDI5NjAzNDciLCJpYXQiOjE2MjkxNTA2NTIsImV4cCI6MTYyOTIzNzA1Mn0.udEeh4VRJZjZhTQ3OeWF567rMfJz2_DowdfXkGW7t6Y"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User and/or password does not match",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "User and/or password does not match",
+                  "code": 144
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User and/or password does not match",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": "User and/or password does not match",
+                  "code": 141
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   "components": {
     "schemas": {
       "User": {
