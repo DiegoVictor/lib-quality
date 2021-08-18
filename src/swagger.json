@@ -13,4 +13,18 @@
       "url":"http://localhost:3333/v1"
     }
   ],
+  "components": {
+    "schemas": {
+      "User": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+    },
+  }
 }
