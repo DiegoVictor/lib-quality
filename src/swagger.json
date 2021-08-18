@@ -25,6 +25,22 @@
           }
         }
       },
+      "Error": {
+        "properties": {
+          "statusCode": {
+            "type": "number"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "number"
+          }
+        }
+      }
     },
   }
 }
