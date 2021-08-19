@@ -249,6 +249,22 @@
           }
         }
       },
+      "Statistics": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "open_issues": {
+            "type": "integer"
+          },
+          "average": {
+            "type": "number"
+          },
+          "deviation": {
+            "type": "number"
+          }
+        }
+      },
       "Error": {
         "properties": {
           "statusCode": {
