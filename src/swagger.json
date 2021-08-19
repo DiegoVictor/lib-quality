@@ -13,6 +13,7 @@
       "url":"http://localhost:3333/v1"
     }
   ],
+  "paths": {
     "/sessions": {
       "post": {
         "tags": ["sessions"],
@@ -123,5 +124,12 @@
         }
       }
     },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   }
 }
