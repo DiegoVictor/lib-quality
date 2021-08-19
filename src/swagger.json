@@ -95,6 +95,45 @@
         }
       }
     },
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "example": {
+                "email": "johndoe@example.com",
+                "password": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Create a new user"
+          },
+          "400": {
+            "description": "Email already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": "Email already in use",
+                  "code": 140
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   "components": {
     "schemas": {
       "User": {
