@@ -134,6 +134,109 @@
         }
       }
     },
+    "/analytics/chart": {
+      "get": {
+        "tags": ["analytics"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "repositories",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": ["ctimmerm/axios-mock-adapter", "testing-library/jest-dom"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return data to fill a chart of lines",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "labels": [
+                    "02/06/2021",
+                    "11/06/2021"
+                  ],
+                  "datasets": [
+                    {
+                      "label": "ctimmerm/axios-mock-adapter - Opened Issues",
+                      "data": [
+                        0,
+                        2
+                      ],
+                      "borderColor": "#21dd98",
+                      "backgroundColor": "transparent"
+                    },
+                    {
+                      "label": "ctimmerm/axios-mock-adapter - Closed Issues",
+                      "data": [
+                        1,
+                        0
+                      ],
+                      "borderColor": "#d452d8",
+                      "backgroundColor": "transparent"
+                    },
+                    {
+                      "label": "testing-library/jest-dom - Opened Issues",
+                      "data": [
+                        0,
+                        0
+                      ],
+                      "borderColor": "#91bdff",
+                      "backgroundColor": "transparent"
+                    },
+                    {
+                      "label": "testing-library/jest-dom - Closed Issues",
+                      "data": [
+                        0,
+                        0
+                      ],
+                      "borderColor": "#6bef9c",
+                      "backgroundColor": "transparent"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Any error while requesting data from GitHub",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "repositories": {
+                    "description": "An error occured while trying to get repositories",
+                    "value": {
+                      "statusCode": 500,
+                      "error": "Internal Server Error",
+                      "message": "An internal server error occurred",
+                      "code": 351
+                    }
+                  },
+                  "issues": {
+                    "description": "An error occured while trying to get repositories' issues",
+                    "value": {
+                      "statusCode": 500,
+                      "error": "Internal Server Error",
+                      "message": "An internal server error occurred",
+                      "code": 352
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   "components": {
     "schemas": {
       "User": {
