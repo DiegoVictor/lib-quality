@@ -327,6 +327,19 @@
           }
         }
       },
+      "Repositories": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "full_name": {
+            "type": "string"
+          }
+        }
+      },
       "Statistics": {
         "properties": {
           "name": {
