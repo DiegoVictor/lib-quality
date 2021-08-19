@@ -237,6 +237,84 @@
         }
       }
     },
+    "/analytics/{user}/{repository}": {
+      "get": {
+        "tags": ["analytics"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "ctimmerm"
+          },
+          {
+            "in": "path",
+            "name": "repository",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "axios-mock-adapter "
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return repository's name, open issues count, days opened average and days opened deviation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Statistics"
+                },
+                "example": {
+                  "name": "ctimmerm/axios-mock-adapter",
+                  "open_issues": 57,
+                  "average": 894.5263157894736,
+                  "deviation": 460.93631273224565
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occured while trying to get repositories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "repositories": {
+                    "description": "An error occured while trying to get repositories",
+                    "value": {
+                      "statusCode": 500,
+                      "error": "Internal Server Error",
+                      "message": "An internal server error occurred",
+                      "code": 351
+                    }
+                  },
+                  "issues": {
+                    "description": "An error occured while trying to get repositories' issues",
+                    "value": {
+                      "statusCode": 500,
+                      "error": "Internal Server Error",
+                      "message": "An internal server error occurred",
+                      "code": 352
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   "components": {
     "schemas": {
       "User": {
