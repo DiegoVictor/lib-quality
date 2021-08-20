@@ -348,6 +348,73 @@
         }
       }
     },
+    "/repositories/{project_name}": {
+      "get": {
+        "tags": ["repositories"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "react"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search repositories in GitHub and return suggestions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Repositories"
+                },
+                "example": [
+                  {
+                    "id": 10270250,
+                    "name": "react",
+                    "full_name": "facebook/react"
+                  },
+                  {
+                    "id": 135786093,
+                    "name": "react",
+                    "full_name": "typescript-cheatsheets/react"
+                  },
+                  {
+                    "id": 75396575,
+                    "name": "react",
+                    "full_name": "duxianwei520/react"
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "An error occured while trying to get repositories list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 500,
+                  "error": "Internal Server Error",
+                  "message": "An internal server error occurred",
+                  "code": 350
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
       "User": {
