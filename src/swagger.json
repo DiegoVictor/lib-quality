@@ -156,7 +156,40 @@
             "description": "Return data to fill a chart of lines",
             "content": {
               "application/json": {
-                "schema": {},
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "datasets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "borderColor": {
+                            "type": "string"
+                          },
+                          "backgroundColor": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
                 "example": {
                   "labels": [
                     "02/06/2021",
