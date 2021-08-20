@@ -5,8 +5,10 @@ import { errors } from 'celebrate';
 import { isBoom, notFound } from '@hapi/boom';
 import helmet from 'helmet';
 import cors from 'cors';
+import swagger from 'swagger-ui-express';
 
 import './database/mongodb';
+import swaggerDocument from './swagger.json';
 import routes from './routes';
 
 const app = express();
@@ -15,6 +17,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+app.use('/docs', swagger.serve, swagger.setup(swaggerDocument));
 app.use('/v1/', routes);
 
 app.all('/*', () => {
