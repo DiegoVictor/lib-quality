@@ -1,5 +1,5 @@
 # LibQuality
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/lib-quality/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/lib-quality/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/lib-quality/Pipeline?logo=github&style=flat-square)](https://github.com/DiegoVictor/lib-quality/actions)
 [![typescript](https://img.shields.io/badge/typescript-4.3.5-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![mongoose](https://img.shields.io/badge/mongoose-5.13.2-green?style=flat-square&logo=mongo&logoColor=white)](https://mongoosejs.com/)
 [![eslint](https://img.shields.io/badge/eslint-7.30.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)

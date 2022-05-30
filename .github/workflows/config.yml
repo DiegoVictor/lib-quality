@@ -1,9 +1,9 @@
-name: CI
+name: Pipeline
 on:
   push:
     branches: [ master ]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     env:
       APP_PORT: '3333'
@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
       - uses: actions/checkout@v2
       - name: Run coverage
         run: |
-          npm install
+          npm ci
           npm run test
       - uses: codecov/codecov-action@v1
         with:
