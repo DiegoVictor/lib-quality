@@ -1,7 +1,7 @@
 import request from 'supertest';
 import MockAdapter from 'axios-mock-adapter';
 import Mongoose from 'mongoose';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { format, subMonths, addDays, subDays, isAfter } from 'date-fns';
 
 import app from '../../src/app';

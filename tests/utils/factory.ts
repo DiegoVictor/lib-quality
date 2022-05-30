@@ -1,5 +1,5 @@
 import factory from 'factory-girl';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import User from '../../src/models/User';
 
