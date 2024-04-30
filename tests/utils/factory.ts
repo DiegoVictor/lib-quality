@@ -1,7 +1,7 @@
 import factory from 'factory-girl';
 import { faker } from '@faker-js/faker';
 
-import User from '../../src/models/User';
+import { User } from '../../src/models/User';
 
 factory.define('User', User, {
   email: faker.internet.email,
@@ -21,10 +21,10 @@ factory.define(
 );
 
 factory.define('GithubRepository', {}, () => {
-  const name = faker.random.alphaNumeric(4).toLowerCase();
+  const name = faker.string.alphanumeric(4).toLowerCase();
 
   return {
-    id: faker.datatype.number(),
+    id: faker.number.int(),
     name,
     full_name: `${faker.internet.userName()}/${name}`.toLowerCase(),
   };
