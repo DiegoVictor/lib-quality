@@ -21,7 +21,7 @@ describe('Auth middleware', () => {
   });
 
   it('should not be able to be authorized with invalid token', async () => {
-    const authorization = faker.random.alphaNumeric(16);
+    const authorization = faker.string.alphanumeric(16);
     const response = await request(app)
       .get('/v1/auth')
       .set('Authorization', authorization);
