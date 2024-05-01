@@ -9,13 +9,7 @@ import factory from '../utils/factory';
 import User from '../../src/models/User';
 import token from '../utils/jwtoken';
 import { http } from '../../src/services/GithubService';
-import Repository from '../../src/models/Repository';
-
-interface Repository {
-  id: number;
-  name: string;
-  full_name: string;
-}
+import { IRepository } from '../../src/models/Repository';
 
 interface User {
   email: string;
@@ -59,7 +53,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
 
   it('should be able to get data to chart line', async () => {
     const minDate = subMonths(new Date(), 1);
-    const [repo1, repo2] = await factory.attrsMany<Repository>(
+    const [repo1, repo2] = await factory.attrsMany<IRepository>(
       'GithubRepository',
       2,
     );
@@ -232,7 +226,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
 
   it('should be able to get data to chart line with some missing fields', async () => {
     const minDate = subMonths(new Date(), 1);
-    const [repo1, repo2] = await factory.attrsMany<Repository>(
+    const [repo1, repo2] = await factory.attrsMany<IRepository>(
       'GithubRepository',
       2,
     );
@@ -359,7 +353,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
 
   it('should be able to get data to chart line out of range dates', async () => {
     const minDate = subMonths(new Date(), 3);
-    const [repo1, repo2] = await factory.attrsMany<Repository>(
+    const [repo1, repo2] = await factory.attrsMany<IRepository>(
       'GithubRepository',
       2,
     );
@@ -492,7 +486,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
 
   it('should be able to get one page of issues of data to chart line', async () => {
     const minDate = subMonths(new Date(), 3);
-    const [repo1, repo2] = await factory.attrsMany<Repository>(
+    const [repo1, repo2] = await factory.attrsMany<IRepository>(
       'GithubRepository',
       2,
     );
@@ -586,7 +580,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
   });
 
   it('should not be able to get data to chart line', async () => {
-    const [repo1, repo2] = await factory.attrsMany<Repository>(
+    const [repo1, repo2] = await factory.attrsMany<IRepository>(
       'GithubRepository',
       2,
     );

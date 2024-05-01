@@ -1,15 +1,15 @@
 import { model, Schema, Document } from 'mongoose';
 
-export interface Repository extends Document {
+export interface IRepository extends Document {
   count: number;
-  fullName: string;
+  full_name: string;
 }
 
-export default model<Repository>(
+export const Repository = model<IRepository>(
   'Repository',
   new Schema(
     {
-      fullName: String,
+      full_name: String,
       count: {
         type: Number,
         required: true,
