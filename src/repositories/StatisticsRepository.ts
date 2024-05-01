@@ -1,4 +1,4 @@
-import SearchSession from '../models/SearchSession';
+import { SearchSession } from '../models/SearchSession';
 import RepositoriesRepository from './RepositoriesRepository';
 
 const repositoriesRepository = new RepositoriesRepository();

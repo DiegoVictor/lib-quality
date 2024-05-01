@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-export default model(
+export const SearchSession = model(
   'SearchSession',
   new Schema({
     user_id: {
