@@ -2,7 +2,7 @@ import request from 'supertest';
 import Mongoose from 'mongoose';
 
 import app from '../../src/app';
-import User from '../../src/models/User';
+import { IUser, User } from '../../src/models/User';
 import factory from '../utils/factory';
 
 describe('User controller', () => {
@@ -15,7 +15,7 @@ describe('User controller', () => {
   });
 
   it('should be able to store a new user', async () => {
-    const { email, password } = await factory.attrs('User');
+    const { email, password } = await factory.attrs<IUser>('User');
     const response = await request(app)
       .post('/v1/users')
       .expect(204)
@@ -25,7 +25,7 @@ describe('User controller', () => {
   });
 
   it('should not be able to store a new user with a duplicated email', async () => {
-    const [{ email }, { password }] = await factory.createMany('User', 2);
+    const [{ email }, { password }] = await factory.createMany<IUser>('User', 2);
     const response = await request(app)
       .post('/v1/users')
       .expect(400)

@@ -6,14 +6,10 @@ import { differenceInDays } from 'date-fns';
 
 import app from '../../src/app';
 import factory from '../utils/factory';
-import User from '../../src/models/User';
+import { IUser, User } from '../../src/models/User';
 import token from '../utils/jwtoken';
 import { http } from '../../src/services/GithubService';
 import { Repository, IRepository } from '../../src/models/Repository';
-interface User {
-  email: string;
-  password: string;
-}
 
 interface Issue {
   created_at: string;
@@ -34,7 +30,7 @@ describe('GitHubProjectAnalyticsController', () => {
     await User.deleteMany({});
     await Repository.deleteMany({});
 
-    const userData = await factory.attrs<User>('User');
+    const userData = await factory.attrs<IUser>('User');
     const user = await User.create(userData);
 
     user_id = user._id;

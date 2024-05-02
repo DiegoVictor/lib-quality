@@ -6,15 +6,10 @@ import { format, subMonths, addDays, subDays, isAfter } from 'date-fns';
 
 import app from '../../src/app';
 import factory from '../utils/factory';
-import User from '../../src/models/User';
+import { User, IUser } from '../../src/models/User';
 import token from '../utils/jwtoken';
 import { http } from '../../src/services/GithubService';
 import { IRepository } from '../../src/models/Repository';
-
-interface User {
-  email: string;
-  password: string;
-}
 
 interface Issue {
   created_at: string;
@@ -41,7 +36,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
 
-    const userData = await factory.attrs<User>('User');
+    const userData = await factory.attrs<IUser>('User');
     const user = await User.create(userData);
 
     user_id = user._id;

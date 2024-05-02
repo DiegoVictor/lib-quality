@@ -3,7 +3,7 @@ import Mongoose from 'mongoose';
 import { faker } from '@faker-js/faker';
 
 import app from '../../src/app';
-import User from '../../src/models/User';
+import { IUser, User } from '../../src/models/User';
 import factory from '../utils/factory';
 import UsersRepository from '../../src/repositories/UsersRepository';
 
@@ -18,7 +18,7 @@ describe('Session controller', () => {
   });
 
   it('should be able to login', async () => {
-    const { email, password } = await factory.attrs('User');
+    const { email, password } = await factory.attrs<IUser>('User');
     const user = await usersRepository.create(email, password);
     const response = await request(app)
       .post('/v1/sessions')
@@ -31,7 +31,7 @@ describe('Session controller', () => {
   });
 
   it('should not be able to login with user that not exists', async () => {
-    const { email, password } = await factory.attrs('User');
+    const { email, password } = await factory.attrs<IUser>('User');
     const response = await request(app)
       .post('/v1/sessions')
       .expect(404)
@@ -47,7 +47,7 @@ describe('Session controller', () => {
 
   it('should not be able to login', async () => {
     const wrong_password = faker.internet.password();
-    const { email, password } = await factory.attrs('User');
+    const { email, password } = await factory.attrs<IUser>('User');
 
     await usersRepository.create(email, password);
 
