@@ -1,14 +1,14 @@
 import bcryptjs from 'bcryptjs';
 
-import Model, { User } from '../models/User';
+import { User, IUser } from '../models/User';
 
-interface UserWithId extends User {
+interface UserWithId extends IUser {
   _id: string;
 }
 
 class UsersRepository {
-  async create(email: string, password: string): Promise<User> {
-    const user = await Model.create({
+  async create(email: string, password: string): Promise<IUser> {
+    const user = await User.create({
       email,
       password: await bcryptjs.hash(password, 8),
     });
@@ -16,7 +16,7 @@ class UsersRepository {
   }
 
   async findOneByEmail(email: string): Promise<UserWithId | null> {
-    const user: UserWithId | null = await Model.findOne({ email }).lean();
+    const user: UserWithId | null = await User.findOne({ email }).lean();
     return user;
   }
 
