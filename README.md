@@ -16,8 +16,8 @@ Allow users to search by project name and check issues status like opened issues
 ## Table of Contents
 * [Installing](#installing)
   * [Configuring](#configuring)
-    * [MongoDB](#mongodb)
     * [.env](#env)
+    * [MongoDB](#mongodb)
 * [Usage](#usage)
   * [Bearer Token](#bearer-token)
   * [Versioning](#versioning)
@@ -43,12 +43,6 @@ The application use just one database: [MongoDB](https://www.mongodb.com/). For 
 $ docker-compose up -d
 ```
 
-### MongoDB
-Store searchs terms, users searchs by session and the users utilized by the application. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
-```
-$ docker run --name libquality-mongo -d -p 27017:27017 mongo
-```
-
 ### .env
 In this file you may configure your MongoDB's database connection, JWT settings and app's port. Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
@@ -58,6 +52,12 @@ In this file you may configure your MongoDB's database connection, JWT settings 
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
 |MONGO_URL|MongoDB's server url.|`mongodb://mongo:27017/libquality`
+
+### MongoDB
+Store searchs terms, users searchs by session and the users utilized by the application. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
+```
+$ docker run --name libquality-mongo -d -p 27017:27017 mongo
+```
 
 # Usage
 To start up the app run:
