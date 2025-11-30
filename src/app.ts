@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import 'express-async-errors';
 import express, { Response, NextFunction, Request } from 'express';
 import { errors } from 'celebrate';
 import { isBoom, notFound } from '@hapi/boom';
