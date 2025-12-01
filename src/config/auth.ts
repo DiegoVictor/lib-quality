@@ -1,6 +1,8 @@
+import { SignOptions } from 'jsonwebtoken';
+
 interface Auth {
   secret: string;
-  expirationTime: string;
+  expirationTime: SignOptions['expiresIn'];
 }
 
 export default {
