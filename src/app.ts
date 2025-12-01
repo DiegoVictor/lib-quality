@@ -25,10 +25,7 @@ app.use((err: Error, _: Request, response: Response, next: NextFunction) => {
   if (isBoom(err)) {
     const { statusCode, payload } = err.output;
 
-    return response.status(statusCode).json({
-      ...payload,
-      ...err.data,
-    });
+    return response.status(statusCode).json({ ...payload, ...err.data });
   }
 
   return next(err);
