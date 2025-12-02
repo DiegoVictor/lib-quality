@@ -1,10 +1,5 @@
 import bcryptjs from 'bcryptjs';
-
 import { User, IUser } from '../models/User';
-
-interface UserWithId extends IUser {
-  _id: string;
-}
 
 class UsersRepository {
   async create(email: string, password: string): Promise<IUser> {
@@ -15,8 +10,8 @@ class UsersRepository {
     return user;
   }
 
-  async findOneByEmail(email: string): Promise<UserWithId | null> {
-    const user: UserWithId | null = await User.findOne({ email }).lean();
+  async findOneByEmail(email: string) {
+    const user = await User.findOne({ email }).lean();
     return user;
   }
 
