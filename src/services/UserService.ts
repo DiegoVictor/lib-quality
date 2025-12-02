@@ -36,7 +36,7 @@ export const login = async (
   }
 
   return responseUser(
-    user._id,
+    user._id.toString(),
     jwt.sign({ id: user._id, session: v4() }, auth.secret, {
       expiresIn: auth.expirationTime,
     }),
