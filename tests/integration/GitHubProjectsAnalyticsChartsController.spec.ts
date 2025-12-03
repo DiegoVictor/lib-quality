@@ -14,12 +14,7 @@ import { IRepository } from '../../src/models/Repository';
 interface Issue {
   created_at: string;
   closed_at: string | null;
-  pull_request:
-    | {
-        url: string;
-      }
-    | undefined
-    | null;
+  pull_request: { url: string } | undefined | null;
 }
 
 interface Dataset {
