@@ -19,11 +19,6 @@ const apiMock = new MockAdapter(http);
 describe('GitHubProjectsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
-
-    const userData = await factory.attrs<IUser>('User');
-    const user = await User.create(userData);
-
-    user_id = user._id;
   });
 
   afterAll(async () => {
@@ -31,11 +26,14 @@ describe('GitHubProjectsController', () => {
   });
 
   it('should be able to get a list of repositories suggestions', async () => {
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+
     const repositories = await factory.attrsMany<GithubRepository>(
       'GithubRepository',
       3,
     );
-    const authorization = `Bearer ${token(user_id)}`;
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock.onGet('/search/repositories').reply(200, { items: repositories });
 
@@ -50,7 +48,10 @@ describe('GitHubProjectsController', () => {
   });
 
   it('should not be able to get a list of repositories suggestions', async () => {
-    const authorization = `Bearer ${token(user_id)}`;
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock.onGet('/search/repositories').reply(400);
 

@@ -29,11 +29,6 @@ const apiMock = new MockAdapter(http);
 describe('GitHubProjectsAnalyticsChartsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
-
-    const userData = await factory.attrs<IUser>('User');
-    const user = await User.create(userData);
-
-    user_id = user._id;
   });
 
   afterAll(async () => {
@@ -109,7 +104,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
         closed_at: addDays(minDate, 1).toISOString(),
       },
     ]);
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     const now = new Date();
     jest.spyOn(Date, 'now').mockImplementation(() => {
@@ -132,9 +130,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
           per_page: 100,
         },
       })
-      .reply(200, issues.slice(0, 3), {
-        link: 'page=2',
-      })
+      .reply(200, issues.slice(0, 3), { link: 'page=2' })
 
       .onGet(`/repos/${repo1.full_name}/issues`, {
         params: {
@@ -156,9 +152,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
           per_page: 100,
         },
       })
-      .reply(200, issues.slice(6, 9), {
-        link: 'page=2',
-      })
+      .reply(200, issues.slice(6, 9), { link: 'page=2' })
 
       .onGet(`/repos/${repo2.full_name}/issues`, {
         params: {
@@ -231,7 +225,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
         };
       }),
     );
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     const now = new Date();
     jest.spyOn(Date, 'now').mockImplementation(() => {
@@ -254,9 +251,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
           per_page: 100,
         },
       })
-      .reply(200, issues.slice(0, 3), {
-        link: 'page=2',
-      })
+      .reply(200, issues.slice(0, 3), { link: 'page=2' })
 
       .onGet(`/repos/${repo1.full_name}/issues`, {
         params: {
@@ -278,9 +273,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
           per_page: 100,
         },
       })
-      .reply(200, issues.slice(6, 9), {
-        link: 'page=2',
-      })
+      .reply(200, issues.slice(6, 9), { link: 'page=2' })
 
       .onGet(`/repos/${repo2.full_name}/issues`, {
         params: {
@@ -363,7 +356,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
         };
       }),
     );
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     const now = new Date();
     jest.spyOn(Date, 'now').mockImplementation(() => {
@@ -386,9 +382,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
           per_page: 100,
         },
       })
-      .reply(200, issues.slice(0, 3), {
-        link: 'page=2',
-      })
+      .reply(200, issues.slice(0, 3), { link: 'page=2' })
 
       .onGet(`/repos/${repo1.full_name}/issues`, {
         params: {
@@ -410,9 +404,7 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
           per_page: 100,
         },
       })
-      .reply(200, issues.slice(6, 9), {
-        link: 'page=2',
-      })
+      .reply(200, issues.slice(6, 9), { link: 'page=2' })
 
       .onGet(`/repos/${repo2.full_name}/issues`, {
         params: {
@@ -490,7 +482,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
         };
       }),
     );
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     const now = new Date();
     jest.spyOn(Date, 'now').mockImplementation(() => {
@@ -573,7 +568,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
       'GithubRepository',
       2,
     );
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock.onGet(`/repos/${repo1.full_name}`).reply(404);
 

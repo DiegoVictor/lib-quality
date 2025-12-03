@@ -23,11 +23,6 @@ describe('GitHubProjectAnalyticsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
     await Repository.deleteMany({});
-
-    const userData = await factory.attrs<IUser>('User');
-    const user = await User.create(userData);
-
-    user_id = user._id;
   });
 
   afterAll(async () => {
@@ -39,11 +34,12 @@ describe('GitHubProjectAnalyticsController', () => {
     const issues = await factory.attrsMany<Issue>(
       'Issue',
       3,
-      Array.from(Array(3).keys()).map(() => ({
-        pull_request: null,
-      })),
+      Array.from(Array(3).keys()).map(() => ({ pull_request: null })),
     );
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock
       .onGet(`/repos/${repository.full_name}/issues`)
@@ -80,13 +76,8 @@ describe('GitHubProjectAnalyticsController', () => {
       open_issues: issues.length,
     });
 
-    const repo = await Repository.findOne({
-      full_name: repository.full_name,
-    });
-    expect(repo).toMatchObject({
-      full_name: repository.full_name,
-      count: 1,
-    });
+    const repo = await Repository.findOne({ full_name: repository.full_name });
+    expect(repo).toMatchObject({ full_name: repository.full_name, count: 1 });
   });
 
   it('should be able to get statistics about a previous repo', async () => {
@@ -94,11 +85,12 @@ describe('GitHubProjectAnalyticsController', () => {
     const issues = await factory.attrsMany<Issue>(
       'Issue',
       3,
-      Array.from(Array(3).keys()).map(() => ({
-        pull_request: null,
-      })),
+      Array.from(Array(3).keys()).map(() => ({ pull_request: null })),
     );
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     await Repository.create({ full_name: repository.full_name, count: 1 });
 
@@ -137,13 +129,8 @@ describe('GitHubProjectAnalyticsController', () => {
       open_issues: issues.length,
     });
 
-    const repo = await Repository.findOne({
-      full_name: repository.full_name,
-    });
-    expect(repo).toMatchObject({
-      full_name: repository.full_name,
-      count: 2,
-    });
+    const repo = await Repository.findOne({ full_name: repository.full_name });
+    expect(repo).toMatchObject({ full_name: repository.full_name, count: 2 });
   });
 
   it('should be able to get statistics about one repo with two pages', async () => {
@@ -158,24 +145,17 @@ describe('GitHubProjectAnalyticsController', () => {
       })),
     );
 
-    const authorization = `Bearer ${token(user_id)}`;
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock
       .onGet(`/repos/${repository.full_name}/issues`, {
-        params: {
-          direction: 'asc',
-          per_page: 100,
-          state: 'open',
-        },
+        params: { direction: 'asc', per_page: 100, state: 'open' },
       })
       .reply(200, issues.slice(0, 3), { link: 'page=2' })
       .onGet(`/repos/${repository.full_name}/issues`, {
-        params: {
-          page: 2,
-          direction: 'asc',
-          per_page: 100,
-          state: 'open',
-        },
+        params: { page: 2, direction: 'asc', per_page: 100, state: 'open' },
       })
       .reply(200, issues.slice(3), {})
       .onGet(`/repos/${repository.full_name}`)
@@ -222,7 +202,10 @@ describe('GitHubProjectAnalyticsController', () => {
 
   it('should not be able to get data from one repo', async () => {
     const repository = await factory.attrs<IRepository>('GithubRepository');
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock.reset();
     apiMock.onGet(`/repos/${repository.full_name}`).reply(400);
@@ -242,7 +225,10 @@ describe('GitHubProjectAnalyticsController', () => {
 
   it('should not be able to get issues from one repo', async () => {
     const repository = await factory.attrs<IRepository>('GithubRepository');
-    const authorization = `Bearer ${token(user_id)}`;
+
+    const userData = await factory.attrs<IUser>('User');
+    const user = await User.create(userData);
+    const authorization = `Bearer ${token(user._id.toString())}`;
 
     apiMock.reset();
     apiMock
