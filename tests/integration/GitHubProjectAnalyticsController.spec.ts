@@ -17,10 +17,9 @@ interface Issue {
   pull_request: { url: string } | undefined | null;
 }
 
-describe('GitHubProjectAnalyticsController', () => {
-  const apiMock = new MockAdapter(http);
+const apiMock = new MockAdapter(http);
 
-  let user_id: string;
+describe('GitHubProjectAnalyticsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
     await Repository.deleteMany({});

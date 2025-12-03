@@ -24,10 +24,9 @@ interface Dataset {
   backgroundColor: string;
 }
 
-describe('GitHubProjectsAnalyticsChartsController', () => {
-  const apiMock = new MockAdapter(http);
+const apiMock = new MockAdapter(http);
 
-  let user_id: string;
+describe('GitHubProjectsAnalyticsChartsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
 

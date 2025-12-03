@@ -14,10 +14,9 @@ interface GithubRepository {
   full_name: string;
 }
 
-describe('GitHubProjectsController', () => {
-  const apiMock = new MockAdapter(http);
+const apiMock = new MockAdapter(http);
 
-  let user_id: string;
+describe('GitHubProjectsController', () => {
   beforeEach(async () => {
     await User.deleteMany({});
 
