@@ -1,4 +1,5 @@
 # LibQuality
+
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DiegoVictor/lib-quality/config.yml?logo=github&style=flat-square)](https://github.com/DiegoVictor/lib-quality/actions)
 [![mongodb](https://img.shields.io/badge/mongodb-6.21.0-13aa52?style=flat-square&logo=mongodb&logoColor=white)](https://mongodb.com/)
 [![typescript](https://img.shields.io/badge/typescript-5.9.3-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
@@ -14,64 +15,82 @@
 Allow users to search by project name and check issues status like opened issues, average days opened and deviation. The app use JWT to logins, validation, also a simple versioning was made.
 
 ## Table of Contents
-* [Installing](#installing)
-  * [Configuring](#configuring)
-    * [.env](#env)
-    * [MongoDB](#mongodb)
-* [Usage](#usage)
-  * [Bearer Token](#bearer-token)
-  * [Versioning](#versioning)
-  * [Routes](#routes)
-    * [Requests](#requests)
-* [Running the tests](#running-the-tests)
-  * [Coverage report](#coverage-report)
+
+- [Installing](#installing)
+  - [Configuring](#configuring)
+    - [.env](#env)
+    - [MongoDB](#mongodb)
+- [Usage](#usage)
+  - [Bearer Token](#bearer-token)
+  - [Versioning](#versioning)
+  - [Routes](#routes)
+    - [Requests](#requests)
+- [Running the tests](#running-the-tests)
+  - [Coverage report](#coverage-report)
 
 # Installing
+
 Easy peasy lemon squeezy:
+
 ```
 $ yarn
 ```
+
 Or:
+
 ```
 $ npm install
 ```
+
 > Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
 ## Configuring
+
 The application use just one database: [MongoDB](https://www.mongodb.com/). For the fastest setup is recommended to use [docker-compose](https://docs.docker.com/compose/), you just need to up all services:
+
 ```
 $ docker-compose up -d
 ```
 
 ### .env
+
 In this file you may configure your MongoDB's database connection, JWT settings and app's port. Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
-|key|description|default
-|---|---|---
-|APP_PORT|Port number where the app will run.|`3333`
-|JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
-|JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
-|MONGO_URL|MongoDB's server url.|`mongodb://mongo:27017/libquality`
+| key                 | description                                                                                                                            | default                            |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| APP_PORT            | Port number where the app will run.                                                                                                    | `3333`                             |
+| JWT_SECRET          | A alphanumeric random string. Used to create signed tokens.                                                                            | -                                  |
+| JWT_EXPIRATION_TIME | How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information. | `7d`                               |
+| MONGO_URL           | MongoDB's server url.                                                                                                                  | `mongodb://mongo:27017/libquality` |
 
 ### MongoDB
+
 Store searchs terms, users searchs by session and the users utilized by the application. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
+
 ```
 $ docker run --name libquality-mongo -d -p 27017:27017 mongo
 ```
 
 # Usage
+
 To start up the app run:
+
 ```
 $ yarn dev:server
 ```
+
 Or:
+
 ```
 npm run dev:server
 ```
+
 Then open the demo `demo/index.htrml` file, wait some seconds until the api request be done, then you will be able to see the chart!
 
 ## Error Handling
+
 Instead of only throw a simple message and HTTP Status Code this API return friendly errors:
+
 ```json
 {
   "statusCode": 400,
@@ -81,50 +100,61 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
   "docs": "https://github.com/DiegoVictor/lib-quality#errors-reference"
 }
 ```
+
 > Errors are implemented with [@hapi/boom](https://github.com/hapijs/boom). As you can see an url to error docs are returned too. To configure this url update the `DOCS_URL` key from `.env` file. In the next sub section ([Errors Reference](https://github.com/DiegoVictor/lib-quality#errors-reference)) you can see the errors code description.
 
 ### Errors Reference
-code|message|description
----|---|---
-|140|Email already in use|An user with the same email already exists.
-|141|User and/or password does not match|Password not match.
-|144|User and/or password does not match|An user with the provided email was not found.
-|240|Missing authorization token|The `Authorization` header was not sent.
-|241|Token expired or invalid|The Bearer token provided is expired or invalid.
-|350|An error occured while trying to get repositories list|The repositories search fail.
-|351|An error occured while trying to get repositories|The tentative to get user's repositories fail.
-|352|An error occured while trying to get repositories' issues|The request fail when trying to load repositories' issues.
-|440|Resource not found|The url requested was not found.
+
+| code | message                                                   | description                                                |
+| ---- | --------------------------------------------------------- | ---------------------------------------------------------- |
+| 140  | Email already in use                                      | An user with the same email already exists.                |
+| 141  | User and/or password does not match                       | Password not match.                                        |
+| 144  | User and/or password does not match                       | An user with the provided email was not found.             |
+| 240  | Missing authorization token                               | The `Authorization` header was not sent.                   |
+| 241  | Token expired or invalid                                  | The Bearer token provided is expired or invalid.           |
+| 350  | An error occured while trying to get repositories list    | The repositories search fail.                              |
+| 351  | An error occured while trying to get repositories         | The tentative to get user's repositories fail.             |
+| 352  | An error occured while trying to get repositories' issues | The request fail when trying to load repositories' issues. |
+| 440  | Resource not found                                        | The url requested was not found.                           |
 
 ## Bearer Token
+
 A few routes expect a Bearer Token in an `Authorization` header.
+
 > You can see these routes in the [routes](#routes) section.
+
 ```
 GET http://localhost:3333/v1/repositories/libquality Authorization: Bearer <token>
 ```
+
 > To achieve this token you just need authenticate through the `/sessions` route and it will return the `token` key with a valid Bearer Token.
 
 ## Versioning
+
 A simple versioning was made. Just remember to set after the `host` the `/v1/` string to your requests.
+
 ```
 GET http://localhost:3333/v1/repositories/libquality
 ```
 
 ## Routes
-|route|HTTP Method|params|description|auth method
-|:---|:---:|:---:|:---:|:---:
-|`/sessions`|POST|Body with user's `email` and `password`.|Authenticates user, return a Bearer Token and user's id and session.|:x:
-|`/users`|POST|Body with user's `email` and `password`.|Create a new user.|:x:
-|`/repositories/:projectName`|GET|`:projectName` to search for.|Search repositories in GitHub and return suggestions.|:heavy_check_mark:
-|`/analytics/:user/:repository`|GET|`:user` and `:repository` from a GitHub's repository (`full name`).|Return repository's name, open issues count, days opened average and days opened deviation.|:heavy_check_mark:
-|`/analytics/chart`|GET|`repository[0]`, `repository[1]` ... `repository[n]`, repository full name| Return data to fill a chart of lines ([Chart.js](https://www.chartjs.org). You can see an example inside `demo` folder.)|:x:
+
+| route                          | HTTP Method |                                   params                                   |                                                       description                                                        |    auth method     |
+| :----------------------------- | :---------: | :------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: | :----------------: |
+| `/sessions`                    |    POST     |                  Body with user's `email` and `password`.                  |                           Authenticates user, return a Bearer Token and user's id and session.                           |        :x:         |
+| `/users`                       |    POST     |                  Body with user's `email` and `password`.                  |                                                    Create a new user.                                                    |        :x:         |
+| `/repositories/:projectName`   |     GET     |                       `:projectName` to search for.                        |                                  Search repositories in GitHub and return suggestions.                                   | :heavy_check_mark: |
+| `/analytics/:user/:repository` |     GET     |    `:user` and `:repository` from a GitHub's repository (`full name`).     |               Return repository's name, open issues count, days opened average and days opened deviation.                | :heavy_check_mark: |
+| `/analytics/chart`             |     GET     | `repository[0]`, `repository[1]` ... `repository[n]`, repository full name | Return data to fill a chart of lines ([Chart.js](https://www.chartjs.org). You can see an example inside `demo` folder.) |        :x:         |
 
 > Routes with auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
 
 ### Requests
-* `POST /session`
+
+- `POST /session`
 
 Request body:
+
 ```json
 {
   "email": "johndoe@example.com",
@@ -132,9 +162,10 @@ Request body:
 }
 ```
 
-* `POST /users`
+- `POST /users`
 
 Request body:
+
 ```json
 {
   "email": "johndoe@example.com",
@@ -143,14 +174,19 @@ Request body:
 ```
 
 # Running the tests
+
 [Jest](https://jestjs.io/) was the choice to test the app, to run:
+
 ```
 $ yarn test
 ```
+
 Or:
+
 ```
 $ npm run test
 ```
 
 ## Coverage report
+
 You can see the coverage report inside `tests/coverage`. They are automatically created after the tests run.
