@@ -6,7 +6,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  bail: 1,
+  // bail: 0,
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\Diego\\AppData\\Local\\Temp\\jest",
