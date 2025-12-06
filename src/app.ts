@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use('/v1/', routes);
 
-app.all('/*', () => {
+app.all('/*splat', () => {
   throw notFound('Resource not found', { code: 440 });
 });
 
