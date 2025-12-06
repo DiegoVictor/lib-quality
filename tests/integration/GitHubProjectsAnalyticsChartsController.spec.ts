@@ -3,7 +3,6 @@ import MockAdapter from 'axios-mock-adapter';
 import Mongoose from 'mongoose';
 import { faker } from '@faker-js/faker';
 import { format, subMonths, addDays, subDays, isAfter } from 'date-fns';
-
 import app from '../../src/app';
 import factory from '../utils/factory';
 import { User, IUser } from '../../src/models/User';
@@ -166,9 +165,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
       .reply(200, issues.slice(9), {});
 
     const response = await request(app)
-      .get(
-        `/v1/analytics/chart?repositories[0]=${repo1.full_name}&repositories[1]=${repo2.full_name}`,
-      )
+      .get(`/v1/analytics/chart`)
+      .query({
+        repositories: [repo1.full_name, repo2.full_name],
+      })
       .set('Authorization', authorization)
       .send();
 
@@ -287,9 +287,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
       .reply(200, issues.slice(9), {});
 
     const response = await request(app)
-      .get(
-        `/v1/analytics/chart?repositories[0]=${repo1.full_name}&repositories[1]=${repo2.full_name}`,
-      )
+      .get(`/v1/analytics/chart`)
+      .query({
+        repositories: [repo1.full_name, repo2.full_name],
+      })
       .set('Authorization', authorization)
       .send();
 
@@ -418,9 +419,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
       .reply(200, issues.slice(9), {});
 
     const response = await request(app)
-      .get(
-        `/v1/analytics/chart?repositories[0]=${repo1.full_name}&repositories[1]=${repo2.full_name}`,
-      )
+      .get(`/v1/analytics/chart`)
+      .query({
+        repositories: [repo1.full_name, repo2.full_name],
+      })
       .set('Authorization', authorization)
       .send();
 
@@ -522,9 +524,10 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
       .reply(200, issues.slice(3), {});
 
     const response = await request(app)
-      .get(
-        `/v1/analytics/chart?repositories[0]=${repo1.full_name}&repositories[1]=${repo2.full_name}`,
-      )
+      .get(`/v1/analytics/chart`)
+      .query({
+        repositories: [repo1.full_name, repo2.full_name],
+      })
       .set('Authorization', authorization)
       .send();
 
@@ -573,12 +576,17 @@ describe('GitHubProjectsAnalyticsChartsController', () => {
     const user = await User.create(userData);
     const authorization = `Bearer ${token(user._id.toString())}`;
 
-    apiMock.onGet(`/repos/${repo1.full_name}`).reply(404);
+    apiMock
+      .onGet(`/repos/${repo1.full_name}`)
+      .reply(404)
+      .onGet(`/repos/${repo2.full_name}`)
+      .reply(404);
 
     const response = await request(app)
-      .get(
-        `/v1/analytics/chart?repositories[0]=${repo1.full_name}&repositories[1]=${repo2.full_name}`,
-      )
+      .get(`/v1/analytics/chart`)
+      .query({
+        repositories: [repo1.full_name, repo2.full_name],
+      })
       .set('Authorization', authorization)
       .send();
 
