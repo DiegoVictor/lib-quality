@@ -50,6 +50,6 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.0.0",
     "randomcolor": "^0.6.2",
-    "uuid": "^13.0.0"
+    "uuid": "^11.1.0"
   }
 }
