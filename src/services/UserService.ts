@@ -1,6 +1,6 @@
 import { badRequest, notFound } from '@hapi/boom';
 import jwt from 'jsonwebtoken';
-import { v4 } from 'uuid';
+import { v7 } from 'uuid';
 
 import UsersRepository from '../repositories/UsersRepository';
 import { responseUser, UserResponse } from '../parses/user';
@@ -37,7 +37,7 @@ export const login = async (
 
   return responseUser(
     user._id.toString(),
-    jwt.sign({ id: user._id, session: v4() }, auth.secret, {
+    jwt.sign({ id: user._id, session: v7() }, auth.secret, {
       expiresIn: auth.expirationTime,
     }),
   );
